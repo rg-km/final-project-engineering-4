@@ -41,7 +41,7 @@ var _ = Describe("SiswaRepository", func() {
 				Email:        "Email1",
 				Password:     "Password1",
 				Nama:         "Nama1",
-				Gender:       "Gender1",
+				JenisKelamin: "JenisKelamin1",
 				NoHP:         "NoHP1",
 				TanggalLahir: "TanggalLahir1",
 				Alamat:       "Alamat1",
@@ -63,7 +63,7 @@ var _ = Describe("SiswaRepository", func() {
 		When("siswa is exist", func() {
 			It("should return siswa with the given email", func() {
 				rows := sqlmock.NewRows([]string{"id", "username", "email", "password", "nama", "gender", "no_hp", "tanggal_lahir", "alamat", "tempat", "filename"}).
-					AddRow(mockSiswa.ID, mockSiswa.Username, mockSiswa.Email, mockSiswa.Password, mockSiswa.Nama, mockSiswa.Gender, mockSiswa.NoHP, mockSiswa.TanggalLahir, mockSiswa.Alamat, mockSiswa.TempatLahir, mockSiswa.Filename)
+					AddRow(mockSiswa.ID, mockSiswa.Username, mockSiswa.Email, mockSiswa.Password, mockSiswa.Nama, mockSiswa.JenisKelamin, mockSiswa.NoHP, mockSiswa.TanggalLahir, mockSiswa.Alamat, mockSiswa.TempatLahir, mockSiswa.Filename)
 				mock.ExpectQuery(query).WithArgs(email).WillReturnRows(rows)
 				siswa, err := siswaRepository.GetByEmail(email)
 				Expect(err).ToNot(HaveOccurred())

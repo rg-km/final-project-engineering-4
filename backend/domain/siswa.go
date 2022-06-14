@@ -8,7 +8,7 @@ type Siswa struct {
 	Email        string `json:"email"`
 	Password     string `json:"password"`
 	Nama         string `json:"nama"`
-	Gender       string `json:"gender"`
+	JenisKelamin string `json:"jenis_kelamin"`
 	NoHP         string `json:"no_hp"`
 	TanggalLahir string `json:"tanggal_lahir"`
 	Alamat       string `json:"alamat"`

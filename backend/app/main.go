@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	db, err := sql.Open("sqlite3", "./database.db")
+	db, err := sql.Open("sqlite3", "./kelasku.db")
 	if err != nil {
 		panic(err)
 	}

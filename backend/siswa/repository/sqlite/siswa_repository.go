@@ -2,7 +2,6 @@ package sqlite
 
 import (
 	"database/sql"
-	"errors"
 
 	"github.com/rg-km/final-project-engineering-4/backend/domain"
 )
@@ -16,7 +15,7 @@ func NewSiswaRepository(db *sql.DB) domain.SiswaRepository {
 }
 
 func (s *siswaRepository) GetByEmail(email string) (*domain.Siswa, error) {
-	query := `SELECT * FROM siswa WHERE email = ?`
+	query := `SELECT id_siswa, username, email, password, nama, jenis_kelamin, no_hp, tanggal_lahir, alamat, tempat_lahir, file_name FROM siswa WHERE email = ?`
 	row := s.db.QueryRow(query, email)
 
 	var res domain.Siswa
@@ -26,7 +25,7 @@ func (s *siswaRepository) GetByEmail(email string) (*domain.Siswa, error) {
 		&res.Email,
 		&res.Password,
 		&res.Nama,
-		&res.Gender,
+		&res.JenisKelamin,
 		&res.NoHP,
 		&res.TanggalLahir,
 		&res.Alamat,
@@ -34,7 +33,7 @@ func (s *siswaRepository) GetByEmail(email string) (*domain.Siswa, error) {
 		&res.Filename,
 	)
 	if err != nil {
-		return nil, errors.New("siswa not found")
+		return nil, err
 	}
 
 	return &res, nil

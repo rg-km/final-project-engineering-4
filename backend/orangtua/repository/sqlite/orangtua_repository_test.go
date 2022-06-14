@@ -139,7 +139,7 @@ var _ = Describe("OrangtuaRepository", func() {
 					Email:        "Email1",
 					Password:     "Password1",
 					Nama:         "Nama1",
-					Gender:       "Gender1",
+					JenisKelamin: "JenisKelamin1",
 					NoHP:         "NoHP1",
 					TanggalLahir: "TanggalLahir1",
 					Alamat:       "Alamat1",
