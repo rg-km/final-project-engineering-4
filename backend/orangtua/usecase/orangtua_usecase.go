@@ -1,8 +1,6 @@
 package usecase
 
 import (
-	"errors"
-
 	"github.com/rg-km/final-project-engineering-4/backend/domain"
 )
 
@@ -21,17 +19,17 @@ func NewOrangTuaUseCase(orangTuaRepo domain.OrangTuaRepository, siswaRepo domain
 func (o *orangTuaUseCase) Register(orangTua domain.OrangTua) error {
 	_, err := o.orangTuaRepo.GetByUsername(orangTua.Username)
 	if err == nil {
-		return errors.New("Username already exists")
+		return domain.ErrUsernameExists
 	}
 
 	_, err = o.orangTuaRepo.GetByEmail(orangTua.Email)
 	if err == nil {
-		return errors.New("Email already exists")
+		return domain.ErrEmailExists
 	}
 
 	_, err = o.siswaRepo.GetByEmail(orangTua.Siswa.Email)
 	if err != nil {
-		return errors.New("Siswa not found")
+		return domain.ErrEmailSiswaNotFound
 	}
 
 	return o.orangTuaRepo.Create(orangTua)
