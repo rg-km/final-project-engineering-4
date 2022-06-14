@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"github.com/rg-km/final-project-engineering-4/backend/domain"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type orangTuaUseCase struct {
@@ -31,6 +32,12 @@ func (o *orangTuaUseCase) Register(orangTua domain.OrangTua) error {
 	if err != nil {
 		return domain.ErrEmailSiswaNotFound
 	}
+
+	hashedPass, err := bcrypt.GenerateFromPassword([]byte(orangTua.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+	orangTua.Password = string(hashedPass)
 
 	return o.orangTuaRepo.Create(orangTua)
 }
