@@ -38,7 +38,7 @@ func (s *siswaRepository) GetByEmail(email string) (*domain.Siswa, error) {
 }
 
 func (o *siswaRepository) GetByUsername(username string) (*domain.Siswa, error) {
-	query := `SELECT SELECT id_siswa, username, email, password, nama, jenis_kelamin, no_hp, alamat FROM siswa WHERE username = ? AND show_item = 1`
+	query := `SELECT id_siswa, username, email, password, nama, jenis_kelamin, no_hp, alamat FROM siswa WHERE username = ? AND show_item = 1`
 	row := o.db.QueryRow(query, username)
 
 	var res domain.Siswa

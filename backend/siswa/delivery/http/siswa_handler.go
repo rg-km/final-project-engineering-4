@@ -1,8 +1,6 @@
 package http
 
 import (
-	"encoding/json"
-	"io/ioutil"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -11,20 +9,6 @@ import (
 
 type siswaHandler struct {
 	siswaUseCase domain.SiswaUseCase
-}
-
-type siswaRequest struct {
-	Username     string `json:"username"`
-	Email        string `json:"email"`
-	Password     string `json:"password"`
-	Nama         string `json:"nama"`
-	JenisKelamin string `json:"jenis_kelamin"`
-	NoHP         string `json:"no_hp"`
-	Alamat       string `json:"alamat"`
-	TempatLahir  string `json:"tempat_lahir"`
-	TanggalLahir string `json:"tanggal_lahir"`
-	Agama        string `json:"agama"`
-	Filename     string `json:"file_name"`
 }
 
 type ErrorResponse struct {
@@ -38,34 +22,20 @@ func NewSiswaHandler(siswaUseCase domain.SiswaUseCase, r *gin.Engine) {
 }
 
 func (o *siswaHandler) Register(c *gin.Context) {
-	body, err := ioutil.ReadAll(c.Request.Body)
+	// body, err := ioutil.ReadAll(c.Request.Body)
+	// if err != nil {
+	// 	c.JSON(http.StatusBadRequest, ErrorResponse{Error: err.Error()})
+	// 	return
+	// }
+
+	var Siswa domain.Siswa
+	err := c.BindJSON(&Siswa)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, ErrorResponse{Error: err.Error()})
 		return
 	}
 
-	var req siswaRequest
-	err = json.Unmarshal(body, &req)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, ErrorResponse{Error: err.Error()})
-		return
-	}
-
-	siswa := domain.Siswa{
-		Username:     req.Username,
-		Email:        req.Email,
-		Password:     req.Password,
-		Nama:         req.Nama,
-		JenisKelamin: req.JenisKelamin,
-		NoHP:         req.NoHP,
-		Alamat:       req.Alamat,
-		TempatLahir:  req.TempatLahir,
-		TanggalLahir: req.TanggalLahir,
-		Agama:        req.Agama,
-		Filename:     req.Filename,
-	}
-
-	err = o.siswaUseCase.Register(siswa)
+	err = o.siswaUseCase.Register(Siswa)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, ErrorResponse{Error: err.Error()})
 		return
