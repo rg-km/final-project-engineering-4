@@ -3,7 +3,13 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@images": ["src/images/*"],
+      "@styles": ["./src/styles/*"],
+      "@routes": ["./src/routes/*"],
+      "@services": ["./src/services/*"],
+      "@store": ["./src/store/*"],
+      "@utils": ["./src/utils/*"],
+      "@tests": ["./src/tests/*"]
     }
   },
   "exclude": ["node_modules"]
