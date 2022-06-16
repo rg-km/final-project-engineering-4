@@ -37,7 +37,7 @@ const RegisterStudent = () => {
     return <BgAuth>
         <Box overflow={'auto'} bg={'white'} maxH={'80vh'} w={['90%', '50%']} m={'auto'} p={[4, 6, 10, 20]} borderRadius={['xl', '2xl']} boxShadow={['2xl']}>
             <Heading textAlign={'center'} fontSize={['sm', 'md', 'lg']} mb={[3, 4, 8]}>Daftar sebagai Siswa</Heading>
-            <form>
+            <form onSubmit={onSubmit}>
                 <InputText name='nama' label='Nama' value={input.nama} handleChange={handleChange} isRequired />
                 <InputText name='username' label='Username' value={input.username} handleChange={handleChange} isRequired />
                 <InputText name='email' label='Email' value={input.email} handleChange={handleChange} isRequired />
@@ -50,7 +50,7 @@ const RegisterStudent = () => {
 
                 <Flex justify={'center'} gap={[2]} mb={[2, 4]}>
                     <Link to={'/register'}><Button size={['sm', 'md']}>Kembali</Button></Link>
-                    <Button type='submit' isLoading={isLoading} onClick={onSubmit} colorScheme='blue' size={['sm', 'md']}>Daftar</Button>
+                    <Button type='submit' isLoading={isLoading} colorScheme='blue' size={['sm', 'md']}>Daftar</Button>
                 </Flex>
             </form>
 
