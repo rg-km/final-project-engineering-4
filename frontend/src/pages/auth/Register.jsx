@@ -3,6 +3,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import RoleItem from 'src/components/RoleItem';
 import teacher from "@images/teaching.png";
+import parent from "@images/parents.png";
+import student from "@images/student.png";
 import BgAuth from 'src/components/BgAuth';
 
 const Register = () => {
@@ -11,8 +13,8 @@ const Register = () => {
             <Heading textAlign={'center'} fontSize={['sm', 'md', 'lg']} mb={[3, 4, 8]}>Daftar sebagai</Heading>
             <Flex gap={[2, 4, 8]} justifyContent={'center'} mb={[2, 4]}>
                 <RoleItem title={'Guru'} redirect={'/register/teacher'} img={teacher} bg={'yellow.200'} />
-                <RoleItem title={'Orang Tua'} redirect={'/register/parent'} img={teacher} bg={'blue.200'} />
-                <RoleItem title={'Siswa'} redirect={'/register/student'} img={teacher} bg={'green.200'} />
+                <RoleItem title={'Orang Tua'} redirect={'/register/parent'} img={parent} bg={'blue.200'} />
+                <RoleItem title={'Siswa'} redirect={'/register/student'} img={student} bg={'green.200'} />
             </Flex>
             <Text textAlign={'center'} fontSize={['xs', 'sm']}>Atau <Link to={'/'} style={{ textDecoration: 'underline' }}>masuk</Link></Text>
         </Box>
