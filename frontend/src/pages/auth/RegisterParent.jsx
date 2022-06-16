@@ -50,7 +50,7 @@ const RegisterParent = () => {
                 </Flex>
             </form>
 
-            <Text textAlign={'center'} fontSize={['xs', 'sm']}>Atau <Link to={'/'} style={{ textDecoration: 'underline' }}>masuk</Link></Text>
+            <Text textAlign={'center'} fontSize={['xs', 'sm']}>Atau <Link to={'/login'} style={{ textDecoration: 'underline' }}>masuk</Link></Text>
         </Box>
     </BgAuth>
 }

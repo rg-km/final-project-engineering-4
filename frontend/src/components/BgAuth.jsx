@@ -10,7 +10,7 @@ const BgAuth = ({ children }) => {
 }
 
 BgAuth.propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node
 }
 
 export default BgAuth;

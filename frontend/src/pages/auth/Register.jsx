@@ -16,7 +16,7 @@ const Register = () => {
                 <RoleItem title={'Orang Tua'} redirect={'/register/parent'} img={parent} bg={'blue.200'} />
                 <RoleItem title={'Siswa'} redirect={'/register/student'} img={student} bg={'green.200'} />
             </Flex>
-            <Text textAlign={'center'} fontSize={['xs', 'sm']}>Atau <Link to={'/'} style={{ textDecoration: 'underline' }}>masuk</Link></Text>
+            <Text textAlign={'center'} fontSize={['xs', 'sm']}>Atau <Link to={'/login'} style={{ textDecoration: 'underline' }}>masuk</Link></Text>
         </Box>
     </BgAuth>
 }
