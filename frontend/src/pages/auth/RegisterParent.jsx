@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import AppAlert from 'src/components/AppAlert';
 import BgAuth from 'src/components/BgAuth';
 import InputPassword from 'src/components/InputPassword';
 import InputText from 'src/components/InputText';
@@ -17,6 +18,11 @@ const RegisterParent = () => {
     }
     const [isLoading, setIsLoading] = useState(false);
     const [input, setInput] = useState(initilInput);
+    const [alert, setAlert] = useState({
+        status: false,
+        type: "success",
+        message: ""
+    });
 
     const handleChange = (e) => {
         setInput({
@@ -35,6 +41,9 @@ const RegisterParent = () => {
     return <BgAuth>
         <Box overflow={'auto'} bg={'white'} maxH={'80vh'} w={['90%', '50%']} m={'auto'} p={[4, 6, 10, 20]} borderRadius={['xl', '2xl']} boxShadow={['2xl']}>
             <Heading textAlign={'center'} fontSize={['sm', 'md', 'lg']} mb={[3, 4, 8]}>Daftar sebagai Orang Tua</Heading>
+
+            <AppAlert alert={alert} setAlert={setAlert} />
+
             <form onSubmit={onSubmit}>
                 <InputText name='nama' label='Nama' value={input.nama} handleChange={handleChange} isRequired />
                 <InputText name='username' label='Username' value={input.username} handleChange={handleChange} isRequired />
