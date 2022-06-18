@@ -1,9 +1,8 @@
 package http
 
 import (
-	"encoding/json"
-	"io/ioutil"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/rg-km/final-project-engineering-4/backend/domain"
@@ -24,10 +23,6 @@ type orangTuaRequest struct {
 	EmailSiswa   string `json:"email_siswa"`
 }
 
-type ErrorResponse struct {
-	Error string `json:"error"`
-}
-
 func NewOrangTuaHandler(orangTuaUseCase domain.OrangTuaUseCase, r *gin.Engine) {
 	handler := &orangTuaHandler{orangTuaUseCase}
 
@@ -35,16 +30,15 @@ func NewOrangTuaHandler(orangTuaUseCase domain.OrangTuaUseCase, r *gin.Engine) {
 }
 
 func (o *orangTuaHandler) Register(c *gin.Context) {
-	body, err := ioutil.ReadAll(c.Request.Body)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, ErrorResponse{Error: err.Error()})
-		return
-	}
-
 	var req orangTuaRequest
-	err = json.Unmarshal(body, &req)
+	err := c.BindJSON(&req)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, ErrorResponse{Error: err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{
+			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
+			"code":      http.StatusBadRequest,
+			"message":   err.Error(),
+			"data":      nil,
+		})
 		return
 	}
 
@@ -61,11 +55,28 @@ func (o *orangTuaHandler) Register(c *gin.Context) {
 		},
 	}
 
-	err = o.orangTuaUseCase.Register(orangTua)
+	data, err := o.orangTuaUseCase.Register(orangTua)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, ErrorResponse{Error: err.Error()})
+		var code int
+		if err == domain.ErrEmailSiswaNotFound {
+			code = http.StatusNotFound
+		} else {
+			code = http.StatusBadRequest
+		}
+
+		c.JSON(http.StatusBadRequest, gin.H{
+			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
+			"code":      code,
+			"message":   err.Error(),
+			"data":      nil,
+		})
 		return
 	}
 
-	c.Status(http.StatusOK)
+	c.JSON(http.StatusOK, gin.H{
+		"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
+		"code":      http.StatusOK,
+		"message":   "Registrasi berhasil",
+		"data":      data,
+	})
 }

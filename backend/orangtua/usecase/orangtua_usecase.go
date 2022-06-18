@@ -17,28 +17,36 @@ func NewOrangTuaUseCase(orangTuaRepo domain.OrangTuaRepository, siswaRepo domain
 	}
 }
 
-func (o *orangTuaUseCase) Register(orangTua domain.OrangTua) error {
+func (o *orangTuaUseCase) Register(orangTua domain.OrangTua) (*domain.OrangTua, error) {
 	_, err := o.orangTuaRepo.GetByUsername(orangTua.Username)
 	if err == nil {
-		return domain.ErrUsernameExists
+		return nil, domain.ErrUsernameExists
 	}
 
 	_, err = o.orangTuaRepo.GetByEmail(orangTua.Email)
 	if err == nil {
-		return domain.ErrEmailExists
+		return nil, domain.ErrEmailExists
 	}
 
 	siswa, err := o.siswaRepo.GetByEmail(orangTua.Siswa.Email)
 	if err != nil {
-		return domain.ErrEmailSiswaNotFound
+		return nil, domain.ErrEmailSiswaNotFound
 	}
 	orangTua.Siswa = *siswa
 
 	hashedPass, err := bcrypt.GenerateFromPassword([]byte(orangTua.Password), bcrypt.DefaultCost)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	orangTua.Password = string(hashedPass)
 
-	return o.orangTuaRepo.Create(orangTua)
+	err = o.orangTuaRepo.Create(orangTua)
+	if err != nil {
+		return nil, err
+	}
+
+	res, _ := o.orangTuaRepo.GetByEmail(orangTua.Email)
+	res.Siswa = *siswa
+
+	return res, nil
 }
