@@ -3,7 +3,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@images": ["src/images/*"],
+      "@images": ["./src/images/*"],
       "@styles": ["./src/styles/*"],
       "@routes": ["./src/routes/*"],
       "@services": ["./src/services/*"],
