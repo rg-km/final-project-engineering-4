@@ -24,5 +24,5 @@ type SiswaRepository interface {
 }
 
 type SiswaUseCase interface {
-	Register(siswa Siswa) error
+	Register(siswa Siswa) (*Siswa, error)
 }

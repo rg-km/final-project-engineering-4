@@ -31,7 +31,7 @@ func (s *siswaRepository) GetByEmail(email string) (*domain.Siswa, error) {
 		&res.Alamat,
 	)
 	if err != nil {
-		return nil, errors.New("siswa not found")
+		return nil, err
 	}
 
 	return &res, nil

@@ -2,6 +2,7 @@ package http
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/rg-km/final-project-engineering-4/backend/domain"
@@ -22,24 +23,34 @@ func NewSiswaHandler(siswaUseCase domain.SiswaUseCase, r *gin.Engine) {
 }
 
 func (o *siswaHandler) Register(c *gin.Context) {
-	// body, err := ioutil.ReadAll(c.Request.Body)
-	// if err != nil {
-	// 	c.JSON(http.StatusBadRequest, ErrorResponse{Error: err.Error()})
-	// 	return
-	// }
 
 	var Siswa domain.Siswa
 	err := c.BindJSON(&Siswa)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, ErrorResponse{Error: err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{
+			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
+			"code":      http.StatusBadRequest,
+			"message":   err.Error(),
+			"data":      nil,
+		})
 		return
 	}
 
-	err = o.siswaUseCase.Register(Siswa)
+	data, err := o.siswaUseCase.Register(Siswa)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, ErrorResponse{Error: err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{
+			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
+			"code":      http.StatusBadRequest,
+			"message":   err.Error(),
+			"data":      nil,
+		})
 		return
 	}
 
-	c.Status(http.StatusOK)
+	c.JSON(http.StatusOK, gin.H{
+		"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
+		"code":      http.StatusOK,
+		"message":   "Registrasi berhasil",
+		"data":      data,
+	})
 }

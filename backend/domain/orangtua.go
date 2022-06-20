@@ -21,5 +21,5 @@ type OrangTuaRepository interface {
 }
 
 type OrangTuaUseCase interface {
-	Register(orangTua OrangTua) error
+	Register(orangTua OrangTua) (*OrangTua, error)
 }
