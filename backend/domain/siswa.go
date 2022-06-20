@@ -19,7 +19,10 @@ type Siswa struct {
 
 type SiswaRepository interface {
 	GetByEmail(email string) (*Siswa, error)
+	GetByUsername(username string) (*Siswa, error)
+	Create(siswa Siswa) error
 }
 
 type SiswaUseCase interface {
+	Register(siswa Siswa) (*Siswa, error)
 }
