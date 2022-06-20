@@ -1,18 +1,17 @@
-// import { Route, Routes } from 'react-router-dom';
-// import Login from '@routes/Login';
-// import LoginParent from '@routes';
-// import LoginStudent from '@routes';
-// import LoginTeacher from '@routes';
-// import Register from '@routes';
-// import RegisterParent from '@routes';
-// import RegisterStudent from '@routes';
-// import RegisterTeacher from '@routes';
+import { Route, Routes } from 'react-router-dom';
+import Login from '@routes';
+import LoginParent from '@routes';
+import LoginStudent from '@routes';
+import LoginTeacher from '@routes';
+import Register from '@routes';
+import RegisterParent from '@routes';
+import RegisterStudent from '@routes';
+import RegisterTeacher from '@routes';
 
 const App = () => {
   return (
     <div>
-      test
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<Register />} />
         <Route path="/register" element={<Register />} />
         <Route path="/register/teacher" element={<RegisterTeacher />} />
@@ -22,7 +21,7 @@ const App = () => {
         <Route path="/login/teacher" element={<LoginTeacher />} />
         <Route path="/login/parent" element={<LoginParent />} />
         <Route path="/login/student" element={<LoginStudent />} />
-      </Routes> */}
+      </Routes>
     </div>
   );
 };
