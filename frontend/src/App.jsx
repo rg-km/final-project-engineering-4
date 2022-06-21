@@ -1,14 +1,9 @@
-import { Route, Routes } from 'react-router-dom';
-import Home from '@routes/Home/Home';
-import Register from '@routes/Auth/Register';
+import Router from '@routes/Router';
 
 const App = () => {
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
+      <Router />
     </div>
   );
 };
