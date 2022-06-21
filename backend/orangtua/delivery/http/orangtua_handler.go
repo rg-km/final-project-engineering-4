@@ -12,7 +12,7 @@ type orangTuaHandler struct {
 	orangTuaUseCase domain.OrangTuaUseCase
 }
 
-type orangTuaRequest struct {
+type OrangTuaRequest struct {
 	Username     string `json:"username,omitempty"`
 	Email        string `json:"email,omitempty"`
 	Password     string `json:"password,omitempty"`
@@ -31,7 +31,7 @@ func NewOrangTuaHandler(orangTuaUseCase domain.OrangTuaUseCase, r *gin.Engine) {
 }
 
 func (o *orangTuaHandler) Register(c *gin.Context) {
-	var req orangTuaRequest
+	var req OrangTuaRequest
 	err := c.BindJSON(&req)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -83,7 +83,7 @@ func (o *orangTuaHandler) Register(c *gin.Context) {
 }
 
 func (o *orangTuaHandler) Login(c *gin.Context) {
-	var req orangTuaRequest
+	var req OrangTuaRequest
 	err := c.BindJSON(&req)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -104,7 +104,7 @@ func (o *orangTuaHandler) Login(c *gin.Context) {
 			code = http.StatusInternalServerError
 		}
 
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusUnauthorized, gin.H{
 			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
 			"code":      code,
 			"message":   err.Error(),
