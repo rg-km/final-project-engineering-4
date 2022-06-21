@@ -12,13 +12,13 @@ export const USER_ROLES = {
     icon: require('@images/icons/teaching.png'),
   },
   PARENT: {
-    value: 'parent',
+    value: 'orang-tua',
     title: 'Orang Tua',
     description: 'They are wonderful as they will ever be!',
     icon: require('@images/icons/parents.png'),
   },
   STUDENT: {
-    value: 'student',
+    value: 'siswa',
     title: 'Siswa',
     description: 'in-built desire to learn and grow.',
     icon: require('@images/icons/student.png'),
