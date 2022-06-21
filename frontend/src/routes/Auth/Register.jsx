@@ -29,16 +29,35 @@ const Register = ({ role }) => {
       title={`Daftar sebagai ${role.title}`}
       subtitle="Lengkapi form di bawah dengan menggunakan data Anda yang valid">
       <Formik initialValues={INITIAL_VALUES} onSubmit={handleSubmit}>
-        {({ values, handleChange }) => (
+        {({ values, getFieldMeta, handleChange }) => (
           <Form>
             <Stack spacing={8}>
               <Stack spacing={3}>
-                <InputText name="nama" label="Nama" value={values.nama} onChange={handleChange} />
-                <InputText name="username" label="Username" value={values.username} onChange={handleChange} />
-                <InputText name="email" label="Email" value={values.email} onChange={handleChange} />
+                <InputText
+                  name="nama"
+                  label="Nama"
+                  value={values.nama}
+                  meta={getFieldMeta('nama')}
+                  onChange={handleChange}
+                />
+                <InputText
+                  name="username"
+                  label="Username"
+                  value={values.username}
+                  meta={getFieldMeta('username')}
+                  onChange={handleChange}
+                />
+                <InputText
+                  name="email"
+                  label="Email"
+                  value={values.email}
+                  meta={getFieldMeta('email')}
+                  onChange={handleChange}
+                />
                 <InputText
                   name="jenis_kelamin"
                   label="Jenis Kelamin"
+                  meta={getFieldMeta('jenis_kelamin')}
                   value={values.jenis_kelamin}
                   onChange={handleChange}
                 />
@@ -46,16 +65,42 @@ const Register = ({ role }) => {
                   name="pendidikan"
                   label="Pendidikan"
                   value={values.pendidikan}
+                  meta={getFieldMeta('pendidikan')}
                   onChange={handleChange}
                 />
-                <InputText name="agama" label="Agama" value={values.agama} onChange={handleChange} />
-                <InputText name="no_hp" label="No HP" value={values.no_hp} onChange={handleChange} />
-                <InputText name="alamat" label="Alamat" value={values.alamat} onChange={handleChange} />
-                <InputPassword name="password" label="Password" value={values.password} onChange={handleChange} />
+                <InputText
+                  name="agama"
+                  label="Agama"
+                  value={values.agama}
+                  meta={getFieldMeta('agama')}
+                  onChange={handleChange}
+                />
+                <InputText
+                  name="no_hp"
+                  label="No HP"
+                  value={values.no_hp}
+                  meta={getFieldMeta('no_hp')}
+                  onChange={handleChange}
+                />
+                <InputText
+                  name="alamat"
+                  label="Alamat"
+                  value={values.alamat}
+                  meta={getFieldMeta('alamat')}
+                  onChange={handleChange}
+                />
+                <InputPassword
+                  name="password"
+                  label="Password"
+                  value={values.password}
+                  meta={getFieldMeta('password')}
+                  onChange={handleChange}
+                />
                 <InputPassword
                   name="confirm_password"
                   label="Konfirmasi Password"
                   value={values.confirm_password}
+                  meta={getFieldMeta('confirm_password')}
                   onChange={handleChange}
                 />
               </Stack>
