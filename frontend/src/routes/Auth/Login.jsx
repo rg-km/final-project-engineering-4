@@ -52,7 +52,7 @@ const Login = ({ role }) => {
           </Stack>
 
           <Stack direction={'row'}>
-            <Button type="submit" variant={'outline'} isLoading={isLoading} flex={1}>
+            <Button as={Link} to={PATH.LOGIN} variant={'outline'} isLoading={isLoading} flex={1}>
               Kembali
             </Button>
             <Button type="submit" isLoading={isLoading} flex={1}>
