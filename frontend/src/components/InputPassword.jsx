@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 
-const InputPassword = ({ value, name, label, handleChange, isRequired }) => {
+const InputPassword = ({ value, name, label, onChange }) => {
   const [show, setShow] = useState(false);
 
   return (
-    <FormControl isRequired={isRequired} overflow={'hidden'}>
+    <FormControl isRequired overflow={'hidden'}>
       <FormLabel>{label}</FormLabel>
       <InputGroup>
         <Input
           name={name}
           value={value}
           type={show ? 'text' : 'password'}
-          onChange={handleChange}
+          onChange={onChange}
           required
           bg={'white'}
         />

@@ -1,22 +1,18 @@
 import { FormControl, FormLabel, Input } from '@chakra-ui/react';
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const InputText = ({ value, name, label, handleChange, isRequired = false }) => {
+const InputText = ({ type, value, name, label, onChange, required }) => {
   return (
-    <FormControl isRequired={isRequired}>
+    <FormControl isRequired={required}>
       <FormLabel>{label}</FormLabel>
-      <Input name={name} value={value} onChange={handleChange} bg={'white'} isRequired={isRequired} />
+      <Input type={type} name={name} value={value} onChange={onChange} bg={'white'} required={required} />
     </FormControl>
   );
 };
 
-InputText.propTypes = {
-  value: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  handleChange: PropTypes.func.isRequired,
-  isRequired: PropTypes.bool,
+InputText.defaultProps = {
+  isRequired: false,
+  value: '',
 };
 
 export default InputText;
