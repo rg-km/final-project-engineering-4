@@ -39,6 +39,7 @@
     "rules": {
       "no-undef": "off",
       "global-require": "off",
+      "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
       "react/jsx-filename-extension": [
         1,
