@@ -35,41 +35,35 @@ const Login = ({ role }) => {
   };
 
   return (
-    <AuthContainer title={`Masuk sebagai ${role.title}`}>
+    <AuthContainer title={`Masuk sebagai ${role.title}`} subtitle="Masukkan email dan password Anda untuk masuk.">
       <AppAlert alert={alert} setAlert={setAlert} />
 
-      <form onSubmit={onSubmit}>
-        <Stack spacing={8}>
-          <Stack spacing={3}>
-            <InputText name="email" label="Email" value={input.email} handleChange={handleChange} isRequired />
-            <InputPassword
-              name="password"
-              label="Password"
-              value={input.password}
-              handleChange={handleChange}
-              isRequired
-            />
-          </Stack>
-
-          <Stack direction={'row'}>
-            <Button as={Link} to={PATH.LOGIN} variant={'outline'} isLoading={isLoading} flex={1}>
-              Kembali
-            </Button>
-            <Button type="submit" isLoading={isLoading} flex={1}>
-              Login
-            </Button>
-          </Stack>
-
-          <Stack>
-            <Text textAlign={'center'} fontSize={'sm'}>
-              Belum punya akun?{' '}
-              <Button as={Link} size={'sm'} variant={'link'} to={`${PATH.REGISTER}/${role.value}`}>
-                Daftar
-              </Button>
-            </Text>
-          </Stack>
+      <Stack as={'form'} onSubmit={onSubmit} spacing={8}>
+        <Stack spacing={3}>
+          <InputText name="email" label="Email" value={input.email} handleChange={handleChange} isRequired />
+          <InputPassword
+            name="password"
+            label="Password"
+            value={input.password}
+            handleChange={handleChange}
+            isRequired
+          />
         </Stack>
-      </form>
+
+        <Stack direction={'row'}>
+          <Button type="submit" isLoading={isLoading} flex={1}>
+            Login
+          </Button>
+        </Stack>
+      </Stack>
+      <Stack>
+        <Text textAlign={'center'} fontSize={'sm'}>
+          Belum punya akun?{' '}
+          <Button as={Link} size={'sm'} variant={'link'} to={`${PATH.REGISTER}/${role.value}`}>
+            Daftar sebagai {role.value}
+          </Button>
+        </Text>
+      </Stack>
     </AuthContainer>
   );
 };
