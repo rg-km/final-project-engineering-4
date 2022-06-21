@@ -3,14 +3,17 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@images": ["./src/images/*"],
-      "@styles": ["./src/styles/*"],
-      "@routes": ["./src/routes/*"],
-      "@services": ["./src/services/*"],
-      "@store": ["./src/store/*"],
-      "@utils": ["./src/utils/*"],
-      "@tests": ["./src/tests/*"]
+      "@components/*": ["src/components/*"],
+      "@config/*": ["src/config/*"],
+      "@images/*": ["src/images/*"],
+      "@routes/*": ["src/routes/*"],
+      "@services/*": ["src/services/*"],
+      "@store/*": ["src/store/*"],
+      "@styles/*": ["src/styles/*"],
+      "@tests/*": ["src/tests/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
