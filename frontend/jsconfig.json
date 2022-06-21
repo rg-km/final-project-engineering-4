@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "paths": {
       "@images/*": ["src/images/*"],
+      "@config/*": ["src/config/*"],
       "@styles/*": ["src/styles/*"],
       "@routes/*": ["src/routes/*"],
       "@services/*": ["src/services/*"],
