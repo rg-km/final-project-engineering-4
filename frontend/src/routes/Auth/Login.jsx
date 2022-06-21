@@ -1,24 +1,63 @@
-import { Box, Flex, Heading, Text } from '@chakra-ui/react';
-import React from 'react';
-import BgAuth from 'src/components/BgAuth';
-import RoleItem from 'src/components/RoleItem';
-import teacher from "@images/teaching.png";
-import parent from "@images/parents.png";
-import student from "@images/student.png";
+import { Button, Flex } from '@chakra-ui/react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import AppAlert from '@components/AppAlert';
+import InputPassword from '@components/InputPassword';
+import InputText from '@components/InputText';
+import AuthFormContainer from './components/AuthFormContainer';
 
-const Login = () => {
-    return <BgAuth>
-        <Box bg={'white'} w={['90%', '50%']} m={'auto'} p={[4, 6, 10, 20]} borderRadius={['xl', '2xl']} boxShadow={['2xl']}>
-            <Heading textAlign={'center'} fontSize={['sm', 'md', 'lg']} mb={[3, 4, 8]}>Masuk sebagai</Heading>
-            <Flex gap={[2, 4, 8]} justifyContent={'center'} mb={[2, 4]}>
-                <RoleItem title={'Guru'} redirect={'/login/teacher'} img={teacher} bg={'yellow.200'} />
-                <RoleItem title={'Orang Tua'} redirect={'/login/parent'} img={parent} bg={'blue.200'} />
-                <RoleItem title={'Siswa'} redirect={'/login/student'} img={student} bg={'green.200'} />
-            </Flex>
-            <Text textAlign={'center'} fontSize={['xs', 'sm']}>Belum punya akun? <Link to={'/register'} style={{ textDecoration: 'underline' }}>daftar</Link></Text>
-        </Box>
-    </BgAuth>
-}
+const Login = ({ role }) => {
+  const initilInput = {
+    email: '',
+    password: '',
+  };
+  const [isLoading, setIsLoading] = useState(false);
+  const [input, setInput] = useState(initilInput);
+  const [alert, setAlert] = useState({
+    status: false,
+    type: 'warning',
+    message: '',
+  });
+
+  const handleChange = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    console.log(input);
+    setIsLoading(false);
+  };
+
+  return (
+    <AuthFormContainer title={`Masuk sebagai ${role.title}`}>
+      <AppAlert alert={alert} setAlert={setAlert} />
+
+      <form onSubmit={onSubmit}>
+        <InputText name="email" label="Email" value={input.email} handleChange={handleChange} isRequired />
+        <InputPassword
+          name="password"
+          label="Password"
+          value={input.password}
+          handleChange={handleChange}
+          isRequired
+        />
+
+        <Flex justify={'center'} gap={[2]}>
+          <Link to={'/login'}>
+            <Button size={['sm', 'md']}>Kembali</Button>
+          </Link>
+          <Button type="submit" isLoading={isLoading} colorScheme="blue" size={['sm', 'md']}>
+            Login
+          </Button>
+        </Flex>
+      </form>
+    </AuthFormContainer>
+  );
+};
 
 export default Login;
