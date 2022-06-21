@@ -12,13 +12,13 @@ function Home() {
         bgRepeat={'no-repeat'}
         bgSize={'cover'}
         objectFit={'cover'}>
-        <Container maxWidth={'8xl'} py={'20'}>
+        <Container maxWidth={'8xl'} py={'12'}>
           <Stack
             height={'full'}
             alignItems={'center'}
             justifyContent={'center'}
             textAlign={'center'}
-            spacing={'10'}>
+            spacing={'8'}>
             <Stack spacing={'4'}>
               <Heading color={'primary.500'} fontSize={['3xl', '4xl', '5xl']}>
                 {APP.name} {APP.version}
@@ -26,7 +26,7 @@ function Home() {
               <Text color={'gray.50'}>Empowering education in Indonesia through technology</Text>
             </Stack>
 
-            <Stack rounded={'md'} padding={[5, 8, 10]} bg={'gray.100'} alignItems={'center'} spacing={8}>
+            <Stack rounded={'md'} padding={[5, 8, 10]} bg={'gray.100'} alignItems={'center'} spacing={[5, 8, 10]}>
               <Text>Masuk Sebagai :</Text>
               <Stack direction={{ base: 'column', md: 'row' }} gap={{ base: 1, md: 3 }} justifyContent={'center'}>
                 {USER_ROLES_ARRAY.map((role) => (
@@ -60,9 +60,9 @@ function Home() {
               </Stack>
             </Stack>
 
-            <Stack py={2}>
-              <Text textAlign={'center'} color={'white'} fontSize={'xs'}>
-                &copy; copyright 2022 Engineering 4 Final Project Ruangguru CAMP
+            <Stack>
+              <Text textAlign={'center'} color={'white'} opacity={'0.5'} fontSize={'xs'}>
+                {APP.copyright}
               </Text>
             </Stack>
           </Stack>
