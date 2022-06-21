@@ -1,3 +1,8 @@
+export const APP = {
+  name: 'MasukKelas',
+  version: '1.0.0',
+};
+
 export const USER_ROLES = {
   TEACHER: {
     value: 'teacher',
