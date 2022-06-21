@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Container, Heading, Image, Stack, Text, Box } from '@chakra-ui/react';
 import { APP, USER_ROLES_ARRAY } from '@utils/constants';
+import { PATH } from '@routes/path';
 
-function Home() {
+function RoleSelection() {
   return (
     <div>
       <Box
@@ -33,7 +34,7 @@ function Home() {
                   <Stack
                     as={Link}
                     key={role.value}
-                    to={role.value}
+                    to={`${PATH.LOGIN}/${role.value}`}
                     bg={'white'}
                     rounded={'md'}
                     shadow={'sm'}
@@ -72,4 +73,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default RoleSelection;
