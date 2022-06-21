@@ -1,9 +1,10 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { USER_ROLES } from '@utils/constants';
+import { PATH } from './path';
 import RoleSelection from './Auth/RoleSelection';
 import Login from './Auth/Login';
-import { PATH } from './path';
-import { USER_ROLES } from '@utils/constants';
+import Register from './Auth/Register';
 
 function Router() {
   return (
@@ -14,6 +15,18 @@ function Router() {
         <Route path={`${PATH.LOGIN}/${USER_ROLES.TEACHER.value}`} element={<Login role={USER_ROLES.TEACHER} />} />
         <Route path={`${PATH.LOGIN}/${USER_ROLES.PARENT.value}`} element={<Login role={USER_ROLES.PARENT} />} />
         <Route path={`${PATH.LOGIN}/${USER_ROLES.STUDENT.value}`} element={<Login role={USER_ROLES.STUDENT} />} />
+        <Route
+          path={`${PATH.REGISTER}/${USER_ROLES.TEACHER.value}`}
+          element={<Register role={USER_ROLES.TEACHER} />}
+        />
+        <Route
+          path={`${PATH.REGISTER}/${USER_ROLES.PARENT.value}`}
+          element={<Register role={USER_ROLES.PARENT} />}
+        />
+        <Route
+          path={`${PATH.REGISTER}/${USER_ROLES.STUDENT.value}`}
+          element={<Register role={USER_ROLES.STUDENT} />}
+        />
       </Routes>
     </div>
   );
