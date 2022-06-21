@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Button, Stack, Text } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
-import { PATH } from '@routes/path';
 import AuthContainer from './components/AuthContainer';
+import { PATH } from '@routes/path';
 import InputText from '@components/InputText';
 import InputPassword from '@components/InputPassword';
+import { VALIDATION_SCHEMA } from '@utils/validation-schema';
 
 const INITIAL_VALUES = {
   nama: '',
@@ -28,9 +29,12 @@ const Register = ({ role }) => {
     <AuthContainer
       title={`Daftar sebagai ${role.title}`}
       subtitle="Lengkapi form di bawah dengan menggunakan data Anda yang valid">
-      <Formik initialValues={INITIAL_VALUES} onSubmit={handleSubmit}>
-        {({ values, getFieldMeta, handleChange }) => (
-          <Form>
+      <Formik
+        initialValues={INITIAL_VALUES}
+        onSubmit={handleSubmit}
+        validationSchema={VALIDATION_SCHEMA.registerSchema}>
+        {({ values, handleSubmit, getFieldMeta, handleChange }) => (
+          <Form onSubmit={handleSubmit}>
             <Stack spacing={8}>
               <Stack spacing={3}>
                 <InputText

@@ -1,11 +1,22 @@
 import { useState } from 'react';
-import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
+import {
+  Button,
+  FormControl,
+  FormErrorMessage,
+  FormHelperText,
+  FormLabel,
+  Input,
+  InputGroup,
+  InputRightElement,
+} from '@chakra-ui/react';
 
-const InputPassword = ({ value, name, label, onChange }) => {
+const InputPassword = ({ value, name, label, onChange, meta, errorMessage, helperMessage }) => {
   const [show, setShow] = useState(false);
 
+  const isInvalid = (meta && meta.touched && meta.error) || errorMessage;
+
   return (
-    <FormControl isRequired overflow={'hidden'}>
+    <FormControl isInvalid={isInvalid} isRequired overflow={'hidden'}>
       <FormLabel>{label}</FormLabel>
       <InputGroup>
         <Input
@@ -27,6 +38,9 @@ const InputPassword = ({ value, name, label, onChange }) => {
           </Button>
         </InputRightElement>
       </InputGroup>
+
+      {!isInvalid && helperMessage && <FormHelperText>{helperMessage}</FormHelperText>}
+      {isInvalid && <FormErrorMessage>{meta.error || errorMessage}</FormErrorMessage>}
     </FormControl>
   );
 };
