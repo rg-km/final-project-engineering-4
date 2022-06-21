@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import AppAlert from '@components/AppAlert';
 import InputPassword from '@components/InputPassword';
 import InputText from '@components/InputText';
-import AuthFormContainer from './components/AuthFormContainer';
+import AuthContainer from './components/AuthContainer';
 import { PATH } from '@routes/path';
 
 const Login = ({ role }) => {
@@ -35,7 +35,7 @@ const Login = ({ role }) => {
   };
 
   return (
-    <AuthFormContainer title={`Masuk sebagai ${role.title}`}>
+    <AuthContainer title={`Masuk sebagai ${role.title}`}>
       <AppAlert alert={alert} setAlert={setAlert} />
 
       <form onSubmit={onSubmit}>
@@ -70,7 +70,7 @@ const Login = ({ role }) => {
           </Stack>
         </Stack>
       </form>
-    </AuthFormContainer>
+    </AuthContainer>
   );
 };
 
