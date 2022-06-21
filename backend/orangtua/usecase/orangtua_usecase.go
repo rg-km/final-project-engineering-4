@@ -1,6 +1,9 @@
 package usecase
 
 import (
+	"time"
+
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/rg-km/final-project-engineering-4/backend/domain"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -32,7 +35,7 @@ func (o *orangTuaUseCase) Register(orangTua domain.OrangTua) (*domain.OrangTua, 
 	if err != nil {
 		return nil, domain.ErrEmailSiswaNotFound
 	}
-	orangTua.Siswa = *siswa
+	orangTua.Siswa = siswa
 
 	hashedPass, err := bcrypt.GenerateFromPassword([]byte(orangTua.Password), bcrypt.DefaultCost)
 	if err != nil {
@@ -46,7 +49,33 @@ func (o *orangTuaUseCase) Register(orangTua domain.OrangTua) (*domain.OrangTua, 
 	}
 
 	res, _ := o.orangTuaRepo.GetByEmail(orangTua.Email)
-	res.Siswa = *siswa
+	res.Siswa = siswa
 
 	return res, nil
+}
+
+func (o *orangTuaUseCase) Login(username, password string) (*domain.OrangTua, string, error) {
+	orangTua, err := o.orangTuaRepo.GetByUsername(username)
+	if err != nil {
+		return nil, "", domain.ErrUsernameWrong
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(orangTua.Password), []byte(password))
+	if err != nil {
+		return nil, "", domain.ErrPasswordWrong
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"id":   orangTua.ID,
+		"role": "Orang Tua",
+		"exp":  time.Now().Add(time.Hour * 24).Unix(),
+	})
+
+	tokenString, err := token.SignedString([]byte("secret"))
+	if err != nil {
+		return nil, "", err
+	}
+
+	orangTua.Siswa = nil
+	return orangTua, tokenString, nil
 }
