@@ -28,7 +28,6 @@ function Home() {
 
             <Stack rounded={'md'} padding={[5, 8, 10]} bg={'gray.100'} alignItems={'center'} spacing={8}>
               <Text>Masuk Sebagai :</Text>
-
               <Stack direction={{ base: 'column', md: 'row' }} gap={{ base: 1, md: 3 }} justifyContent={'center'}>
                 {USER_ROLES_ARRAY.map((role) => (
                   <Stack
@@ -60,12 +59,12 @@ function Home() {
                 ))}
               </Stack>
             </Stack>
-          </Stack>
 
-          <Stack position={'fixed'} bottom={0} left={0} width={'full'} py={3}>
-            <Text textAlign={'center'} color={'white'} fontSize={'xs'}>
-              &copy; copyright 2022 Engineering 4 Final Project Ruangguru CAMP
-            </Text>
+            <Stack py={2}>
+              <Text textAlign={'center'} color={'white'} fontSize={'xs'}>
+                &copy; copyright 2022 Engineering 4 Final Project Ruangguru CAMP
+              </Text>
+            </Stack>
           </Stack>
         </Container>
       </Box>
