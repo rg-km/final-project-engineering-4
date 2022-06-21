@@ -5,11 +5,11 @@ import RoleItem from 'src/components/RoleItem';
 import teacher from '@images/icons/teaching.png';
 import parent from '@images/icons/parents.png';
 import student from '@images/icons/student.png';
-import BgAuth from 'src/components/BgAuth';
+import AuthBackground from '@routes/Auth/components/AuthBackground';
 
 const Register = () => {
   return (
-    <BgAuth>
+    <AuthBackground>
       <Box
         bg={'white'}
         w={['90%', '50%']}
@@ -22,12 +22,7 @@ const Register = () => {
         </Heading>
         <Flex gap={[2, 4, 8]} justifyContent={'center'} mb={[2, 4]}>
           <RoleItem title={'Guru'} redirect={'/register/teacher'} img={teacher} bg={'yellow.200'} />
-          <RoleItem
-            title={'Orang Tua'}
-            redirect={'/register/parent'}
-            img={parent}
-            bg={'blue.200'}
-          />
+          <RoleItem title={'Orang Tua'} redirect={'/register/parent'} img={parent} bg={'blue.200'} />
           <RoleItem title={'Siswa'} redirect={'/register/student'} img={student} bg={'green.200'} />
         </Flex>
         <Text textAlign={'center'} fontSize={['xs', 'sm']}>
@@ -37,7 +32,7 @@ const Register = () => {
           </Link>
         </Text>
       </Box>
-    </BgAuth>
+    </AuthBackground>
   );
 };
 
