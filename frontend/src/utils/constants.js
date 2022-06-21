@@ -6,20 +6,20 @@ export const APP = {
 
 export const USER_ROLES = {
   TEACHER: {
-    value: 'teacher',
-    title: 'Teacher',
+    value: 'guru',
+    title: 'Guru',
     description: 'You are a leading educator in the nation.',
     icon: require('@images/icons/teaching.png'),
   },
   PARENT: {
     value: 'parent',
-    title: 'Parent',
+    title: 'Orang Tua',
     description: 'They are wonderful as they will ever be!',
     icon: require('@images/icons/parents.png'),
   },
   STUDENT: {
     value: 'student',
-    title: 'Student',
+    title: 'Siswa',
     description: 'in-built desire to learn and grow.',
     icon: require('@images/icons/student.png'),
   },
