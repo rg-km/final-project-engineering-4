@@ -5,7 +5,10 @@
 package mocks
 
 import (
+	reflect "reflect"
+
 	gomock "github.com/golang/mock/gomock"
+	domain "github.com/rg-km/final-project-engineering-4/backend/domain"
 )
 
 // MockGuruRepository is a mock of GuruRepository interface.
@@ -31,6 +34,35 @@ func (m *MockGuruRepository) EXPECT() *MockGuruRepositoryMockRecorder {
 	return m.recorder
 }
 
+// Create mocks base method.
+func (m *MockGuruRepository) Create(arg0 domain.Guru) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Create", arg0)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Create indicates an expected call of Create.
+func (mr *MockGuruRepositoryMockRecorder) Create(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockGuruRepository)(nil).Create), arg0)
+}
+
+// GetByEmail mocks base method.
+func (m *MockGuruRepository) GetByEmail(arg0 string) (*domain.Guru, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetByEmail", arg0)
+	ret0, _ := ret[0].(*domain.Guru)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetByEmail indicates an expected call of GetByEmail.
+func (mr *MockGuruRepositoryMockRecorder) GetByEmail(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByEmail", reflect.TypeOf((*MockGuruRepository)(nil).GetByEmail), arg0)
+}
+
 // MockGuruUseCase is a mock of GuruUseCase interface.
 type MockGuruUseCase struct {
 	ctrl     *gomock.Controller
@@ -52,4 +84,35 @@ func NewMockGuruUseCase(ctrl *gomock.Controller) *MockGuruUseCase {
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockGuruUseCase) EXPECT() *MockGuruUseCaseMockRecorder {
 	return m.recorder
+}
+
+// Login mocks base method.
+func (m *MockGuruUseCase) Login(arg0, arg1 string) (*domain.Guru, string, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Login", arg0, arg1)
+	ret0, _ := ret[0].(*domain.Guru)
+	ret1, _ := ret[1].(string)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// Login indicates an expected call of Login.
+func (mr *MockGuruUseCaseMockRecorder) Login(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Login", reflect.TypeOf((*MockGuruUseCase)(nil).Login), arg0, arg1)
+}
+
+// Register mocks base method.
+func (m *MockGuruUseCase) Register(arg0 domain.Guru) (*domain.Guru, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Register", arg0)
+	ret0, _ := ret[0].(*domain.Guru)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Register indicates an expected call of Register.
+func (mr *MockGuruUseCaseMockRecorder) Register(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Register", reflect.TypeOf((*MockGuruUseCase)(nil).Register), arg0)
 }
