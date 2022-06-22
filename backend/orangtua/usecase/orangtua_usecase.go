@@ -21,12 +21,7 @@ func NewOrangTuaUseCase(orangTuaRepo domain.OrangTuaRepository, siswaRepo domain
 }
 
 func (o *orangTuaUseCase) Register(orangTua domain.OrangTua) (*domain.OrangTua, error) {
-	_, err := o.orangTuaRepo.GetByUsername(orangTua.Username)
-	if err == nil {
-		return nil, domain.ErrUsernameExists
-	}
-
-	_, err = o.orangTuaRepo.GetByEmail(orangTua.Email)
+	_, err := o.orangTuaRepo.GetByEmail(orangTua.Email)
 	if err == nil {
 		return nil, domain.ErrEmailExists
 	}

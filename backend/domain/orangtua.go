@@ -14,7 +14,6 @@ type OrangTua struct {
 }
 
 type OrangTuaRepository interface {
-	GetByUsername(username string) (*OrangTua, error)
 	GetByEmail(email string) (*OrangTua, error)
 	Create(orangTua OrangTua) error
 }

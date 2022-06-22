@@ -19,12 +19,7 @@ func NewSiswaUseCase(siswaRepo domain.SiswaRepository) domain.SiswaUseCase {
 }
 
 func (s *siswaUseCase) Register(siswa domain.Siswa) (*domain.Siswa, error) {
-	_, err := s.siswaRepo.GetByUsername(siswa.Username)
-	if err == nil {
-		return nil, domain.ErrUsernameExists
-	}
-
-	_, err = s.siswaRepo.GetByEmail(siswa.Email)
+	_, err := s.siswaRepo.GetByEmail(siswa.Email)
 	if err == nil {
 		return nil, domain.ErrEmailExists
 	}
@@ -39,7 +34,7 @@ func (s *siswaUseCase) Register(siswa domain.Siswa) (*domain.Siswa, error) {
 	if err != nil {
 		return nil, err
 	}
-	return s.siswaRepo.GetByUsername(siswa.Username)
+	return s.siswaRepo.GetByEmail(siswa.Email)
 }
 
 func (s *siswaUseCase) Login(email, password string) (*domain.Siswa, string, error) {

@@ -63,21 +63,6 @@ func (mr *MockSiswaRepositoryMockRecorder) GetByEmail(arg0 interface{}) *gomock.
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByEmail", reflect.TypeOf((*MockSiswaRepository)(nil).GetByEmail), arg0)
 }
 
-// GetByUsername mocks base method.
-func (m *MockSiswaRepository) GetByUsername(arg0 string) (*domain.Siswa, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetByUsername", arg0)
-	ret0, _ := ret[0].(*domain.Siswa)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetByUsername indicates an expected call of GetByUsername.
-func (mr *MockSiswaRepositoryMockRecorder) GetByUsername(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByUsername", reflect.TypeOf((*MockSiswaRepository)(nil).GetByUsername), arg0)
-}
-
 // MockSiswaUseCase is a mock of SiswaUseCase interface.
 type MockSiswaUseCase struct {
 	ctrl     *gomock.Controller

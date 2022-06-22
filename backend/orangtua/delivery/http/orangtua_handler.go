@@ -13,7 +13,6 @@ type orangTuaHandler struct {
 }
 
 type OrangTuaRequest struct {
-	Username     string `json:"username,omitempty"`
 	Email        string `json:"email,omitempty"`
 	Password     string `json:"password,omitempty"`
 	Nama         string `json:"nama,omitempty"`
@@ -44,7 +43,6 @@ func (o *orangTuaHandler) Register(c *gin.Context) {
 	}
 
 	orangTua := domain.OrangTua{
-		Username:     req.Username,
 		Email:        req.Email,
 		Password:     req.Password,
 		Nama:         req.Nama,
