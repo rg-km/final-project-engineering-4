@@ -1,6 +1,9 @@
 package usecase
 
 import (
+	"time"
+
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/rg-km/final-project-engineering-4/backend/domain"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -37,4 +40,25 @@ func (s *siswaUseCase) Register(siswa domain.Siswa) (*domain.Siswa, error) {
 		return nil, err
 	}
 	return s.siswaRepo.GetByUsername(siswa.Username)
+}
+func (s *siswaUseCase) Login(username, password string) (*domain.Siswa, string, error) {
+	siswa, err := s.siswaRepo.GetByUsername(username)
+	if err != nil {
+		return nil, "", domain.ErrUsernameWrong
+	}
+	err = bcrypt.CompareHashAndPassword([]byte(siswa.Password), ([]byte(password)))
+	if err != nil {
+		return nil, "", domain.ErrPasswordWrong
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"id":   siswa.ID,
+		"role": "Siswa",
+		"exp":  time.Now().Add(time.Hour * 24).Unix(),
+	})
+	tokenString, err := token.SignedString([]byte("secret"))
+	if err != nil {
+		return nil, "", err
+	}
+
+	return siswa, tokenString, nil
 }

@@ -34,6 +34,20 @@ func (m *MockSiswaRepository) EXPECT() *MockSiswaRepositoryMockRecorder {
 	return m.recorder
 }
 
+// Create mocks base method.
+func (m *MockSiswaRepository) Create(arg0 domain.Siswa) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Create", arg0)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Create indicates an expected call of Create.
+func (mr *MockSiswaRepositoryMockRecorder) Create(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockSiswaRepository)(nil).Create), arg0)
+}
+
 // GetByEmail mocks base method.
 func (m *MockSiswaRepository) GetByEmail(arg0 string) (*domain.Siswa, error) {
 	m.ctrl.T.Helper()
@@ -47,6 +61,21 @@ func (m *MockSiswaRepository) GetByEmail(arg0 string) (*domain.Siswa, error) {
 func (mr *MockSiswaRepositoryMockRecorder) GetByEmail(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByEmail", reflect.TypeOf((*MockSiswaRepository)(nil).GetByEmail), arg0)
+}
+
+// GetByUsername mocks base method.
+func (m *MockSiswaRepository) GetByUsername(arg0 string) (*domain.Siswa, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetByUsername", arg0)
+	ret0, _ := ret[0].(*domain.Siswa)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetByUsername indicates an expected call of GetByUsername.
+func (mr *MockSiswaRepositoryMockRecorder) GetByUsername(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByUsername", reflect.TypeOf((*MockSiswaRepository)(nil).GetByUsername), arg0)
 }
 
 // MockSiswaUseCase is a mock of SiswaUseCase interface.
@@ -70,4 +99,35 @@ func NewMockSiswaUseCase(ctrl *gomock.Controller) *MockSiswaUseCase {
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockSiswaUseCase) EXPECT() *MockSiswaUseCaseMockRecorder {
 	return m.recorder
+}
+
+// Login mocks base method.
+func (m *MockSiswaUseCase) Login(arg0, arg1 string) (*domain.Siswa, string, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Login", arg0, arg1)
+	ret0, _ := ret[0].(*domain.Siswa)
+	ret1, _ := ret[1].(string)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// Login indicates an expected call of Login.
+func (mr *MockSiswaUseCaseMockRecorder) Login(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Login", reflect.TypeOf((*MockSiswaUseCase)(nil).Login), arg0, arg1)
+}
+
+// Register mocks base method.
+func (m *MockSiswaUseCase) Register(arg0 domain.Siswa) (*domain.Siswa, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Register", arg0)
+	ret0, _ := ret[0].(*domain.Siswa)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Register indicates an expected call of Register.
+func (mr *MockSiswaUseCaseMockRecorder) Register(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Register", reflect.TypeOf((*MockSiswaUseCase)(nil).Register), arg0)
 }
