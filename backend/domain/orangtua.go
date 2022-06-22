@@ -11,7 +11,7 @@ type OrangTua struct {
 	JenisKelamin string `json:"jenis_kelamin"`
 	NoHP         string `json:"no_hp"`
 	Alamat       string `json:"alamat"`
-	Siswa        Siswa  `json:"siswa"`
+	Siswa        *Siswa `json:"siswa,omitempty"`
 }
 
 type OrangTuaRepository interface {
@@ -22,4 +22,5 @@ type OrangTuaRepository interface {
 
 type OrangTuaUseCase interface {
 	Register(orangTua OrangTua) (*OrangTua, error)
+	Login(username, password string) (*OrangTua, string, error)
 }

@@ -78,7 +78,7 @@ func (s *siswaHandler) Login(c *gin.Context) {
 			code = http.StatusInternalServerError
 		}
 
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusUnauthorized, gin.H{
 			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
 			"code":      code,
 			"message":   err.Error(),
