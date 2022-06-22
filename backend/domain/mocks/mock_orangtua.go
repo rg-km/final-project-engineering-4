@@ -102,11 +102,12 @@ func (m *MockOrangTuaUseCase) EXPECT() *MockOrangTuaUseCaseMockRecorder {
 }
 
 // Register mocks base method.
-func (m *MockOrangTuaUseCase) Register(arg0 domain.OrangTua) error {
+func (m *MockOrangTuaUseCase) Register(arg0 domain.OrangTua) (*domain.OrangTua, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Register", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*domain.OrangTua)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // Register indicates an expected call of Register.
