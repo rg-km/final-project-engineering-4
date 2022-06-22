@@ -19,8 +19,12 @@ type ErrorResponse struct {
 func NewSiswaHandler(siswaUseCase domain.SiswaUseCase, r *gin.Engine) {
 	handler := &siswaHandler{siswaUseCase}
 
-	r.POST("/api/siswa/signup", handler.Register)
-	r.POST("/api/siswa/login", handler.Login)
+	siswa := r.Group("/api/siswa")
+	{
+		siswa.POST("/signup", handler.Register)
+		siswa.POST("/login", handler.Login)
+	}
+
 }
 
 func (s *siswaHandler) Register(c *gin.Context) {

@@ -25,8 +25,11 @@ type OrangTuaRequest struct {
 func NewOrangTuaHandler(orangTuaUseCase domain.OrangTuaUseCase, r *gin.Engine) {
 	handler := &orangTuaHandler{orangTuaUseCase}
 
-	r.POST("/api/orangtua/signup", handler.Register)
-	r.POST("/api/orangtua/login", handler.Login)
+	orangtua := r.Group("/api/orangtua")
+	{
+		orangtua.POST("/signup", handler.Register)
+		orangtua.POST("/login", handler.Login)
+	}
 }
 
 func (o *orangTuaHandler) Register(c *gin.Context) {
