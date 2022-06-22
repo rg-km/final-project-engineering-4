@@ -39,7 +39,7 @@ var _ = Describe("SiswaHandler", func() {
 			It("should return status unauthorized", func() {
 				mockSiswaUseCase.EXPECT().Login("wrong email", "password").Return(nil, "", domain.ErrEmailNotFound)
 				var body bytes.Buffer
-				json.NewEncoder(&body).Encode(domain.Siswa{Email: "wrong username", Password: "password"})
+				json.NewEncoder(&body).Encode(domain.Siswa{Email: "wrong email", Password: "password"})
 
 				w := httptest.NewRecorder()
 				req := httptest.NewRequest("POST", "/api/siswa/login", &body)

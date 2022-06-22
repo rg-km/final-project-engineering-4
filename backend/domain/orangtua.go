@@ -4,7 +4,6 @@ package domain
 
 type OrangTua struct {
 	ID           int64  `json:"id_wali"`
-	Username     string `json:"username"`
 	Email        string `json:"email"`
 	Password     string `json:"password"`
 	Nama         string `json:"nama"`
@@ -15,7 +14,6 @@ type OrangTua struct {
 }
 
 type OrangTuaRepository interface {
-	GetByUsername(username string) (*OrangTua, error)
 	GetByEmail(email string) (*OrangTua, error)
 	Create(orangTua OrangTua) error
 }

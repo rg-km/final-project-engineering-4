@@ -63,21 +63,6 @@ func (mr *MockOrangTuaRepositoryMockRecorder) GetByEmail(arg0 interface{}) *gomo
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByEmail", reflect.TypeOf((*MockOrangTuaRepository)(nil).GetByEmail), arg0)
 }
 
-// GetByUsername mocks base method.
-func (m *MockOrangTuaRepository) GetByUsername(arg0 string) (*domain.OrangTua, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetByUsername", arg0)
-	ret0, _ := ret[0].(*domain.OrangTua)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetByUsername indicates an expected call of GetByUsername.
-func (mr *MockOrangTuaRepositoryMockRecorder) GetByUsername(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByUsername", reflect.TypeOf((*MockOrangTuaRepository)(nil).GetByUsername), arg0)
-}
-
 // MockOrangTuaUseCase is a mock of OrangTuaUseCase interface.
 type MockOrangTuaUseCase struct {
 	ctrl     *gomock.Controller

@@ -10,7 +10,7 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 
-const InputPassword = ({ value, name, label, onChange, meta, errorMessage, helperMessage }) => {
+const InputPassword = ({ value, name, label, disabled, onChange, meta, errorMessage, helperMessage }) => {
   const [show, setShow] = useState(false);
 
   const isInvalid = (meta && meta.touched && meta.error) || errorMessage;
@@ -25,6 +25,7 @@ const InputPassword = ({ value, name, label, onChange, meta, errorMessage, helpe
           type={show ? 'text' : 'password'}
           onChange={onChange}
           required
+          disabled={disabled}
           bg={'white'}
         />
         <InputRightElement width="4.5rem">

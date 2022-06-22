@@ -13,7 +13,6 @@ type orangTuaHandler struct {
 }
 
 type OrangTuaRequest struct {
-	Username     string `json:"username,omitempty"`
 	Email        string `json:"email,omitempty"`
 	Password     string `json:"password,omitempty"`
 	Nama         string `json:"nama,omitempty"`
@@ -26,8 +25,11 @@ type OrangTuaRequest struct {
 func NewOrangTuaHandler(orangTuaUseCase domain.OrangTuaUseCase, r *gin.Engine) {
 	handler := &orangTuaHandler{orangTuaUseCase}
 
-	r.POST("/api/orangtua/signup", handler.Register)
-	r.POST("/api/orangtua/login", handler.Login)
+	orangtua := r.Group("/api/orangtua")
+	{
+		orangtua.POST("/signup", handler.Register)
+		orangtua.POST("/login", handler.Login)
+	}
 }
 
 func (o *orangTuaHandler) Register(c *gin.Context) {
@@ -44,7 +46,6 @@ func (o *orangTuaHandler) Register(c *gin.Context) {
 	}
 
 	orangTua := domain.OrangTua{
-		Username:     req.Username,
 		Email:        req.Email,
 		Password:     req.Password,
 		Nama:         req.Nama,

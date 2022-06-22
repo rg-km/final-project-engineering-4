@@ -1,10 +1,8 @@
 package usecase
 
 import (
-	"time"
-
-	"github.com/golang-jwt/jwt/v4"
 	"github.com/rg-km/final-project-engineering-4/backend/domain"
+	"github.com/rg-km/final-project-engineering-4/backend/util"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -21,12 +19,7 @@ func NewOrangTuaUseCase(orangTuaRepo domain.OrangTuaRepository, siswaRepo domain
 }
 
 func (o *orangTuaUseCase) Register(orangTua domain.OrangTua) (*domain.OrangTua, error) {
-	_, err := o.orangTuaRepo.GetByUsername(orangTua.Username)
-	if err == nil {
-		return nil, domain.ErrUsernameExists
-	}
-
-	_, err = o.orangTuaRepo.GetByEmail(orangTua.Email)
+	_, err := o.orangTuaRepo.GetByEmail(orangTua.Email)
 	if err == nil {
 		return nil, domain.ErrEmailExists
 	}
@@ -65,17 +58,11 @@ func (o *orangTuaUseCase) Login(email, password string) (*domain.OrangTua, strin
 		return nil, "", domain.ErrPasswordWrong
 	}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"id":   orangTua.ID,
-		"role": "Orang Tua",
-		"exp":  time.Now().Add(time.Hour * 24).Unix(),
-	})
-
-	tokenString, err := token.SignedString([]byte("secret"))
+	token, err := util.GenerateToken(orangTua.ID, "Orang Tua")
 	if err != nil {
 		return nil, "", err
 	}
 
 	orangTua.Siswa = nil
-	return orangTua, tokenString, nil
+	return orangTua, token, nil
 }

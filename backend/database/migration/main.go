@@ -5,6 +5,7 @@ import (
 
 	_ "github.com/mattn/go-sqlite3"
 )
+
 // Run This Script for migration db
 func main() {
 	db, err := sql.Open("sqlite3", "kelasku.db")
@@ -16,7 +17,6 @@ func main() {
 
 CREATE TABLE IF NOT EXISTS siswa (
     id_siswa integer not null primary key AUTOINCREMENT,
-    username varchar(255) not null,
 	password varchar(255) not null,
 	email varchar(255) not null,
 	no_hp varchar(100) not null,
@@ -33,7 +33,6 @@ CREATE TABLE IF NOT EXISTS siswa (
 
 CREATE TABLE IF NOT EXISTS guru (
     id_guru integer not null primary key AUTOINCREMENT,
-    username varchar(255) not null,
 	password varchar(255) not null,
 	nama varchar(255) not null,
 	alamat text not null,
@@ -50,7 +49,6 @@ CREATE TABLE IF NOT EXISTS guru (
 CREATE TABLE IF NOT EXISTS wali_orangtua (
     id_wali integer not null primary key AUTOINCREMENT,
     id_siswa integer not null,
-	username varchar(255) not null,
 	password varchar(255) not null,
 	nama varchar(255) not null,
 	alamat text not null,

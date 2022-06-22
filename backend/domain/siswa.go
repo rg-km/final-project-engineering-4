@@ -4,7 +4,6 @@ package domain
 
 type Siswa struct {
 	ID           int64  `json:"id_siswa,omitempty"`
-	Username     string `json:"username,omitempty"`
 	Email        string `json:"email,omitempty"`
 	Password     string `json:"password,omitempty"`
 	Nama         string `json:"nama,omitempty"`
@@ -19,11 +18,10 @@ type Siswa struct {
 
 type SiswaRepository interface {
 	GetByEmail(email string) (*Siswa, error)
-	GetByUsername(username string) (*Siswa, error)
 	Create(siswa Siswa) error
 }
 
 type SiswaUseCase interface {
 	Register(siswa Siswa) (*Siswa, error)
-	Login(username, password string) (*Siswa, string, error)
+	Login(email, password string) (*Siswa, string, error)
 }

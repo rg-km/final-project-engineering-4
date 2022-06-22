@@ -1,10 +1,8 @@
 package usecase
 
 import (
-	"time"
-
-	"github.com/golang-jwt/jwt/v4"
 	"github.com/rg-km/final-project-engineering-4/backend/domain"
+	"github.com/rg-km/final-project-engineering-4/backend/util"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -19,12 +17,7 @@ func NewSiswaUseCase(siswaRepo domain.SiswaRepository) domain.SiswaUseCase {
 }
 
 func (s *siswaUseCase) Register(siswa domain.Siswa) (*domain.Siswa, error) {
-	_, err := s.siswaRepo.GetByUsername(siswa.Username)
-	if err == nil {
-		return nil, domain.ErrUsernameExists
-	}
-
-	_, err = s.siswaRepo.GetByEmail(siswa.Email)
+	_, err := s.siswaRepo.GetByEmail(siswa.Email)
 	if err == nil {
 		return nil, domain.ErrEmailExists
 	}
@@ -39,8 +32,9 @@ func (s *siswaUseCase) Register(siswa domain.Siswa) (*domain.Siswa, error) {
 	if err != nil {
 		return nil, err
 	}
-	return s.siswaRepo.GetByUsername(siswa.Username)
+	return s.siswaRepo.GetByEmail(siswa.Email)
 }
+
 func (s *siswaUseCase) Login(email, password string) (*domain.Siswa, string, error) {
 	siswa, err := s.siswaRepo.GetByEmail(email)
 	if err != nil {
@@ -50,15 +44,11 @@ func (s *siswaUseCase) Login(email, password string) (*domain.Siswa, string, err
 	if err != nil {
 		return nil, "", domain.ErrPasswordWrong
 	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"id":   siswa.ID,
-		"role": "Siswa",
-		"exp":  time.Now().Add(time.Hour * 24).Unix(),
-	})
-	tokenString, err := token.SignedString([]byte("secret"))
+
+	token, err := util.GenerateToken(siswa.ID, "Siswa")
 	if err != nil {
 		return nil, "", err
 	}
 
-	return siswa, tokenString, nil
+	return siswa, token, nil
 }
