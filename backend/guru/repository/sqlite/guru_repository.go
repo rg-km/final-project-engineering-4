@@ -36,9 +36,9 @@ func (g *guruRepository) GetByEmail(email string) (*domain.Guru, error) {
 	return &res, nil
 }
 
-func (s *guruRepository) Create(guru domain.Guru) error {
+func (g *guruRepository) Create(guru domain.Guru) error {
 	query := `INSERT INTO guru (username, email, password, nama, jenis_kelamin, no_hp, alamat, agama, pendidikan, file_name) VALUES (?,?,?,?,?,?,?,?,?,?)`
-	_, err := s.db.Exec(query,
+	_, err := g.db.Exec(query,
 		guru.Username,
 		guru.Email,
 		guru.Password,
