@@ -2,9 +2,9 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { USER_ROLES } from '@utils/constants';
 import { PATH } from './path';
-import RoleSelection from './Auth/RoleSelection';
-import Login from './Auth/Login';
-import Register from './Auth/Register';
+import RoleSelection from '../pages/Auth/RoleSelection';
+import Login from '../pages/Auth/Login';
+import Register from '../pages/Auth/Register';
 
 function Router() {
   return (

@@ -5,7 +5,7 @@ import AppAlert from '@components/AppAlert';
 import InputPassword from '@components/InputPassword';
 import InputText from '@components/InputText';
 import AuthContainer from './components/AuthContainer';
-import { PATH } from '@routes/path';
+import { PATH } from '@config/path';
 
 const Login = ({ role }) => {
   const initilInput = {

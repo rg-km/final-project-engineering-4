@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Button, Stack, Text } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import AuthContainer from './components/AuthContainer';
-import { PATH } from '@routes/path';
+import { PATH } from '@config/path';
 import InputText from '@components/InputText';
 import InputPassword from '@components/InputPassword';
 import { VALIDATION_SCHEMA } from '@utils/validation-schema';

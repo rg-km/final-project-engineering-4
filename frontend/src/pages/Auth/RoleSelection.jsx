@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Container, Heading, Image, Stack, Text } from '@chakra-ui/react';
 import { APP, USER_ROLES_ARRAY } from '@utils/constants';
-import { PATH } from '@routes/path';
+import { PATH } from '@config/path';
 import AuthBackground from './components/AuthBackground';
 
 function RoleSelection() {

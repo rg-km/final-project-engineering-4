@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button, Container, Divider, Heading, Stack, Text } from '@chakra-ui/react';
-import { PATH } from '@routes/path';
+import { PATH } from '@config/path';
 import AuthBackground from './AuthBackground';
 
 function AuthFormContainer({ title, subtitle, children }) {

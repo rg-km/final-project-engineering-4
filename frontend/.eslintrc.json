@@ -1,52 +1,49 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "settings": {
-      "import/resolver": {
-        "node": {
-          "extensions": [".js", ".jsx"],
-          "moduleDirectory": ["node_modules", "."]
-        },
-        "alias": {
-          "map": [
-            ["@components", "./src/components"],
-            ["@config", "./src/config"],
-            ["@images", "./src/images"],
-            ["@routes", "./src/routes"],
-            ["@services", "./src/services"],
-            ["@store", "./src/store"],
-            ["@styles", "./src/styles"],
-            ["@tests", "./src/tests"],
-            ["@utils", "./src/utils"]
-          ],
-          "extensions": [".js", ".jsx"]
-        }
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx"],
+        "moduleDirectory": ["node_modules", "."]
+      },
+      "alias": {
+        "map": [
+          ["@components", "./src/components"],
+          ["@config", "./src/config"],
+          ["@images", "./src/images"],
+          ["@pages", "./src/pages"],
+          ["@services", "./src/services"],
+          ["@store", "./src/store"],
+          ["@styles", "./src/styles"],
+          ["@tests", "./src/tests"],
+          ["@utils", "./src/utils"]
+        ],
+        "extensions": [".js", ".jsx"]
       }
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": ["react", "jest"],
-    "rules": {
-      "no-undef": "off",
-      "global-require": "off",
-      "react/prop-types": "off",
-      "react/react-in-jsx-scope": "off",
-      "react/jsx-filename-extension": [
-        1,
-        {
-          "extensions": [".js", ".jsx"]
-        }
-      ]
     }
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "jest"],
+  "rules": {
+    "no-undef": "off",
+    "global-require": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ]
+  }
 }
