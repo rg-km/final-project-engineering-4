@@ -41,10 +41,10 @@ func (s *siswaUseCase) Register(siswa domain.Siswa) (*domain.Siswa, error) {
 	}
 	return s.siswaRepo.GetByUsername(siswa.Username)
 }
-func (s *siswaUseCase) Login(username, password string) (*domain.Siswa, string, error) {
-	siswa, err := s.siswaRepo.GetByUsername(username)
+func (s *siswaUseCase) Login(email, password string) (*domain.Siswa, string, error) {
+	siswa, err := s.siswaRepo.GetByEmail(email)
 	if err != nil {
-		return nil, "", domain.ErrUsernameWrong
+		return nil, "", domain.ErrEmailNotFound
 	}
 	err = bcrypt.CompareHashAndPassword([]byte(siswa.Password), ([]byte(password)))
 	if err != nil {
