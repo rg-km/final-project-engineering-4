@@ -8,4 +8,5 @@ var (
 	ErrEmailSiswaNotFound = errors.New("Email Siswa Tidak Ditemukan")
 	ErrPasswordWrong      = errors.New("Password Salah")
 	ErrUsernameWrong      = errors.New("Username Salah")
+	ErrEmailNotFound      = errors.New("Email Tidak Ditemukan")
 )

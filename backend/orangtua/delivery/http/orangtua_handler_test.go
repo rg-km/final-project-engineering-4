@@ -34,11 +34,11 @@ var _ = Describe("OrangtuaHandler", func() {
 	})
 
 	Describe("login orangtua", func() {
-		When("wrong username given", func() {
+		When("email given was not found", func() {
 			It("should return status unauthorized", func() {
-				mockOrangTuaUseCase.EXPECT().Login("wrong username", "password").Return(nil, "", domain.ErrUsernameWrong)
+				mockOrangTuaUseCase.EXPECT().Login("wrong email", "password").Return(nil, "", domain.ErrEmailNotFound)
 				var body bytes.Buffer
-				json.NewEncoder(&body).Encode(handler.OrangTuaRequest{Username: "wrong username", Password: "password"})
+				json.NewEncoder(&body).Encode(handler.OrangTuaRequest{Email: "wrong email", Password: "password"})
 
 				w := httptest.NewRecorder()
 				req := httptest.NewRequest("POST", "/api/orangtua/login", &body)
@@ -50,9 +50,9 @@ var _ = Describe("OrangtuaHandler", func() {
 
 		When("wrong password given", func() {
 			It("should return status unauthorized", func() {
-				mockOrangTuaUseCase.EXPECT().Login("username", "wrong password").Return(nil, "", domain.ErrPasswordWrong)
+				mockOrangTuaUseCase.EXPECT().Login("email", "wrong password").Return(nil, "", domain.ErrPasswordWrong)
 				var body bytes.Buffer
-				json.NewEncoder(&body).Encode(handler.OrangTuaRequest{Username: "username", Password: "wrong password"})
+				json.NewEncoder(&body).Encode(handler.OrangTuaRequest{Email: "email", Password: "wrong password"})
 
 				w := httptest.NewRecorder()
 				req := httptest.NewRequest("POST", "/api/orangtua/login", &body)
@@ -63,9 +63,9 @@ var _ = Describe("OrangtuaHandler", func() {
 		})
 		When("login success", func() {
 			It("should return status OK", func() {
-				mockOrangTuaUseCase.EXPECT().Login("username", "password").Return(&domain.OrangTua{Username: "username", Password: "password"}, "jwt", nil)
+				mockOrangTuaUseCase.EXPECT().Login("email", "password").Return(&domain.OrangTua{Email: "email", Password: "password"}, "jwt", nil)
 				var body bytes.Buffer
-				json.NewEncoder(&body).Encode(handler.OrangTuaRequest{Username: "username", Password: "password"})
+				json.NewEncoder(&body).Encode(handler.OrangTuaRequest{Email: "email", Password: "password"})
 
 				w := httptest.NewRecorder()
 				req := httptest.NewRequest("POST", "/api/orangtua/login", &body)
