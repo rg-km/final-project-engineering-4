@@ -35,7 +35,7 @@ func (o *orangTuaRepository) GetByUsername(username string) (*domain.OrangTua, e
 		return nil, err
 	}
 
-	res.Siswa = domain.Siswa{ID: idSiswa}
+	res.Siswa = &domain.Siswa{ID: idSiswa}
 	return &res, nil
 }
 
@@ -60,7 +60,7 @@ func (o *orangTuaRepository) GetByEmail(email string) (*domain.OrangTua, error) 
 		return nil, err
 	}
 
-	res.Siswa = domain.Siswa{ID: idSiswa}
+	res.Siswa = &domain.Siswa{ID: idSiswa}
 	return &res, nil
 }
 

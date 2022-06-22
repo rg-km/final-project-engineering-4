@@ -11,13 +11,15 @@
         },
         "alias": {
           "map": [
+            ["@components", "./src/components"],
+            ["@config", "./src/config"],
             ["@images", "./src/images"],
-            ["@styles", "./src/styles"],
             ["@routes", "./src/routes"],
             ["@services", "./src/services"],
             ["@store", "./src/store"],
-            ["@utils", "./src/utils"],
-            ["@tests", "./src/tests"]
+            ["@styles", "./src/styles"],
+            ["@tests", "./src/tests"],
+            ["@utils", "./src/utils"]
           ],
           "extensions": [".js", ".jsx"]
         }
@@ -38,6 +40,7 @@
     "rules": {
       "no-undef": "off",
       "global-require": "off",
+      "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
       "react/jsx-filename-extension": [
         1,

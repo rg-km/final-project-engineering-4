@@ -1,31 +1,21 @@
-import { FormControl, FormLabel, Input } from '@chakra-ui/react';
-import React from 'react';
-import PropTypes from 'prop-types';
+import { FormControl, FormLabel, Input, FormErrorMessage, FormHelperText } from '@chakra-ui/react';
 
-const InputText = ({value, name, label, handleChange, isRequired = false}) => {
-    return <>
-        <FormControl mb={[4]} isRequired={isRequired}>
-            <FormLabel fontSize={["xs", "md"]}>
-                {label}
-            </FormLabel>
-            <Input
-                size={["md"]}
-                name={name}
-                value={value}
-                onChange={handleChange}
-                bg={'white'}
-                isRequired={isRequired}
-            />
-        </FormControl>
-    </>
-}
+const InputText = ({ type, value, name, label, onChange, meta, required, helperMessage, errorMessage }) => {
+  const isInvalid = (meta && meta.touched && meta.error) || errorMessage;
 
-InputText.propTypes = {
-    value: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    label: PropTypes.string,
-    handleChange: PropTypes.func.isRequired,
-    isRequired: PropTypes.bool
-}
+  return (
+    <FormControl isInvalid={isInvalid} isRequired={required}>
+      <FormLabel>{label}</FormLabel>
+      <Input type={type} name={name} value={value} onChange={onChange} bg={'white'} required={required} />
+      {!isInvalid && helperMessage && <FormHelperText>{helperMessage}</FormHelperText>}
+      {isInvalid && <FormErrorMessage>{meta.error || errorMessage}</FormErrorMessage>}
+    </FormControl>
+  );
+};
+
+InputText.defaultProps = {
+  isRequired: false,
+  value: '',
+};
 
 export default InputText;
