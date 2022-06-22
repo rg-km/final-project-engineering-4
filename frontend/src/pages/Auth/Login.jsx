@@ -1,10 +1,11 @@
-import { Button, Stack, Text } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Form, Formik } from 'formik';
+import { Button, Stack, Text, useToast } from '@chakra-ui/react';
 import InputPassword from '@components/InputPassword';
 import InputText from '@components/InputText';
 import AuthContainer from './components/AuthContainer';
 import { PATH } from '@config/path';
-import { Form, Formik } from 'formik';
 import { VALIDATION_SCHEMA } from '@utils/validation-schema';
 import { useAuthStore } from '@store/auth.store';
 
@@ -14,11 +15,17 @@ const INITIAL_VALUES = {
 };
 
 const Login = ({ role }) => {
+  const toast = useToast();
   const authAction = useAuthStore((state) => state.action);
+  const { error, isLoading } = useAuthStore((state) => state);
 
   const handleSubmit = async (values) => {
     authAction.login(role.value, values.email, values.password);
   };
+
+  useEffect(() => {
+    if (error?.message) toast({ status: 'error', position: 'top-right', title: error.message, duration: 3000 });
+  }, [error]);
 
   return (
     <AuthContainer title={`Masuk sebagai ${role.title}`} subtitle="Masukkan email dan password Anda untuk masuk.">
@@ -35,6 +42,7 @@ const Login = ({ role }) => {
                 value={values.email}
                 onChange={handleChange}
                 meta={getFieldMeta('email')}
+                disabled={isLoading}
                 required
               />
               <InputPassword
@@ -43,12 +51,13 @@ const Login = ({ role }) => {
                 value={values.password}
                 meta={getFieldMeta('password')}
                 onChange={handleChange}
+                disabled={isLoading}
                 required
               />
             </Stack>
 
             <Stack direction={'row'}>
-              <Button type="submit" flex={1}>
+              <Button type="submit" flex={1} isLoading={isLoading}>
                 Login
               </Button>
             </Stack>

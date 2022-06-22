@@ -16,22 +16,17 @@ const login = async (role, email, password) => {
   try {
     const response = await http.post(baseURL, data);
 
-    console.log(response);
-
     return {
-      payload: res.data,
-      status: res.code,
-      message: res.message,
-      error: null,
+      payload: response.data,
+      status: response.code,
+      message: response.message,
       success: true,
     };
   } catch (error) {
-    console.log({ error });
     return {
-      status: error.response.status,
-      statusText: error.response.statusText,
-      message: error.message,
       payload: error.response.data,
+      status: error.response.status,
+      message: error.message,
       success: false,
     };
   }
