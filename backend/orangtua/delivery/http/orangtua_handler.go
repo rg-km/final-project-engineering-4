@@ -95,10 +95,12 @@ func (o *orangTuaHandler) Login(c *gin.Context) {
 		return
 	}
 
-	data, token, err := o.orangTuaUseCase.Login(req.Username, req.Password)
+	data, token, err := o.orangTuaUseCase.Login(req.Email, req.Password)
 	if err != nil {
 		var code int
-		if err == domain.ErrUsernameWrong || err == domain.ErrPasswordWrong {
+		if err == domain.ErrEmailNotFound {
+			code = http.StatusNotFound
+		} else if err == domain.ErrPasswordWrong {
 			code = http.StatusUnauthorized
 		} else {
 			code = http.StatusInternalServerError
