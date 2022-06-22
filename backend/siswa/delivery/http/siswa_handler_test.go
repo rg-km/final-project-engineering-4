@@ -35,11 +35,11 @@ var _ = Describe("SiswaHandler", func() {
 	})
 
 	Describe("login siswa", func() {
-		When("wrong username given", func() {
+		When("email given was not found", func() {
 			It("should return status unauthorized", func() {
-				mockSiswaUseCase.EXPECT().Login("wrong username", "password").Return(nil, "", domain.ErrUsernameWrong)
+				mockSiswaUseCase.EXPECT().Login("wrong email", "password").Return(nil, "", domain.ErrEmailNotFound)
 				var body bytes.Buffer
-				json.NewEncoder(&body).Encode(domain.Siswa{Username: "wrong username", Password: "password"})
+				json.NewEncoder(&body).Encode(domain.Siswa{Email: "wrong username", Password: "password"})
 
 				w := httptest.NewRecorder()
 				req := httptest.NewRequest("POST", "/api/siswa/login", &body)

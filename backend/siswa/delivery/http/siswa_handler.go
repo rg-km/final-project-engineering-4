@@ -69,10 +69,10 @@ func (s *siswaHandler) Login(c *gin.Context) {
 		return
 	}
 
-	data, token, err := s.siswaUseCase.Login(Siswa.Username, Siswa.Password)
+	data, token, err := s.siswaUseCase.Login(Siswa.Email, Siswa.Password)
 	if err != nil {
 		var code int
-		if err == domain.ErrUsernameWrong || err == domain.ErrPasswordWrong {
+		if err == domain.ErrEmailNotFound || err == domain.ErrPasswordWrong {
 			code = http.StatusUnauthorized
 		} else {
 			code = http.StatusInternalServerError
