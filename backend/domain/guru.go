@@ -3,20 +3,25 @@ package domain
 //go:generate mockgen -destination=./mocks/mock_guru.go -package=mocks github.com/rg-km/final-project-engineering-4/backend/domain GuruRepository,GuruUseCase
 
 type Guru struct {
-	ID           int64  `json:"id_guru,omitempty"`
+	ID           int64  `json:"id,omitempty"`
+	Username     string `json:"username,omitempty"`
+	Email        string `json:"email,omitempty"`
 	Password     string `json:"password,omitempty"`
 	Nama         string `json:"nama,omitempty"`
-	Alamat       string `json:"alamat,omitempty"`
-	NoHP         string `json:"no_hp,omitempty"`
 	JenisKelamin string `json:"jenis_kelamin,omitempty"`
-	Agama        string `json:"agama,omitempty"`
-	Email        string `json:"email,omitempty"`
+	NoHP         string `json:"no_hp,omitempty"`
 	Pendidikan   string `json:"pendidikan,omitempty"`
-	Filename     string `json:"file_name,omitempty"`
+	Alamat       string `json:"alamat,omitempty"`
+	Agama        string `json:"agama,omitempty"`
+	Filename     string `json:"filename,omitempty"`
 }
 
 type GuruRepository interface {
+	GetByEmail(email string) (*Guru, error)
+	Create(guru Guru) error
 }
 
 type GuruUseCase interface {
+	Register(guru Guru) (*Guru, error)
+	Login(username, password string) (*Guru, string, error)
 }
