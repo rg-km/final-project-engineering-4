@@ -39,7 +39,7 @@ var _ = Describe("SiswaHandler", func() {
 			It("should return status unauthorized", func() {
 				mockSiswaUseCase.EXPECT().Login("wrong email", "password").Return(nil, "", domain.ErrEmailNotFound)
 				var body bytes.Buffer
-				json.NewEncoder(&body).Encode(domain.Siswa{Email: "wrong username", Password: "password"})
+				json.NewEncoder(&body).Encode(domain.Siswa{Email: "wrong email", Password: "password"})
 
 				w := httptest.NewRecorder()
 				req := httptest.NewRequest("POST", "/api/siswa/login", &body)
@@ -51,9 +51,9 @@ var _ = Describe("SiswaHandler", func() {
 
 		When("wrong password given", func() {
 			It("should return status unauthorized", func() {
-				mockSiswaUseCase.EXPECT().Login("username", "wrong password").Return(nil, "", domain.ErrPasswordWrong)
+				mockSiswaUseCase.EXPECT().Login("email", "wrong password").Return(nil, "", domain.ErrPasswordWrong)
 				var body bytes.Buffer
-				json.NewEncoder(&body).Encode(domain.Siswa{Username: "username", Password: "wrong password"})
+				json.NewEncoder(&body).Encode(domain.Siswa{Email: "email", Password: "wrong password"})
 
 				w := httptest.NewRecorder()
 				req := httptest.NewRequest("POST", "/api/siswa/login", &body)
@@ -64,9 +64,9 @@ var _ = Describe("SiswaHandler", func() {
 		})
 		When("login success", func() {
 			It("should return status OK", func() {
-				mockSiswaUseCase.EXPECT().Login("username", "password").Return(&domain.Siswa{Username: "username", Password: "password"}, "jwt", nil)
+				mockSiswaUseCase.EXPECT().Login("email", "password").Return(&domain.Siswa{Email: "email", Password: "password"}, "jwt", nil)
 				var body bytes.Buffer
-				json.NewEncoder(&body).Encode(domain.Siswa{Username: "username", Password: "password"})
+				json.NewEncoder(&body).Encode(domain.Siswa{Email: "email", Password: "password"})
 
 				w := httptest.NewRecorder()
 				req := httptest.NewRequest("POST", "/api/siswa/login", &body)
