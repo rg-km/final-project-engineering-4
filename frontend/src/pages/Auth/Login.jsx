@@ -1,61 +1,60 @@
 import { Button, Stack, Text } from '@chakra-ui/react';
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AppAlert from '@components/AppAlert';
 import InputPassword from '@components/InputPassword';
 import InputText from '@components/InputText';
 import AuthContainer from './components/AuthContainer';
 import { PATH } from '@config/path';
+import { Form, Formik } from 'formik';
+import { VALIDATION_SCHEMA } from '@utils/validation-schema';
+import { useAuthStore } from '@store/auth.store';
+
+const INITIAL_VALUES = {
+  email: '',
+  password: '',
+};
 
 const Login = ({ role }) => {
-  const initilInput = {
-    email: '',
-    password: '',
-  };
-  const [isLoading, setIsLoading] = useState(false);
-  const [input, setInput] = useState(initilInput);
-  const [alert, setAlert] = useState({
-    status: false,
-    type: 'warning',
-    message: '',
-  });
+  const authAction = useAuthStore((state) => state.action);
 
-  const handleChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    console.log(input);
-    setIsLoading(false);
+  const handleSubmit = async (values) => {
+    authAction.login(role.value, values.email, values.password);
   };
 
   return (
     <AuthContainer title={`Masuk sebagai ${role.title}`} subtitle="Masukkan email dan password Anda untuk masuk.">
-      <AppAlert alert={alert} setAlert={setAlert} />
+      <Formik
+        initialValues={INITIAL_VALUES}
+        validationSchema={VALIDATION_SCHEMA.loginSchema}
+        onSubmit={handleSubmit}>
+        {({ values, handleChange, handleSubmit, getFieldMeta }) => (
+          <Stack as={Form} onSubmit={handleSubmit} spacing={8}>
+            <Stack spacing={3}>
+              <InputText
+                name="email"
+                label="Email"
+                value={values.email}
+                onChange={handleChange}
+                meta={getFieldMeta('email')}
+                required
+              />
+              <InputPassword
+                name="password"
+                label="Password"
+                value={values.password}
+                meta={getFieldMeta('password')}
+                onChange={handleChange}
+                required
+              />
+            </Stack>
 
-      <Stack as={'form'} onSubmit={onSubmit} spacing={8}>
-        <Stack spacing={3}>
-          <InputText name="email" label="Email" value={input.email} handleChange={handleChange} isRequired />
-          <InputPassword
-            name="password"
-            label="Password"
-            value={input.password}
-            handleChange={handleChange}
-            isRequired
-          />
-        </Stack>
-
-        <Stack direction={'row'}>
-          <Button type="submit" isLoading={isLoading} flex={1}>
-            Login
-          </Button>
-        </Stack>
-      </Stack>
+            <Stack direction={'row'}>
+              <Button type="submit" flex={1}>
+                Login
+              </Button>
+            </Stack>
+          </Stack>
+        )}
+      </Formik>
       <Stack>
         <Text textAlign={'center'} fontSize={'sm'}>
           Belum punya akun?{' '}
