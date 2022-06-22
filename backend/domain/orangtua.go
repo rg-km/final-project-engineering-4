@@ -22,5 +22,5 @@ type OrangTuaRepository interface {
 
 type OrangTuaUseCase interface {
 	Register(orangTua OrangTua) (*OrangTua, error)
-	Login(username, password string) (*OrangTua, string, error)
+	Login(email, password string) (*OrangTua, string, error)
 }

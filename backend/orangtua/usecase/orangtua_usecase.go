@@ -54,10 +54,10 @@ func (o *orangTuaUseCase) Register(orangTua domain.OrangTua) (*domain.OrangTua, 
 	return res, nil
 }
 
-func (o *orangTuaUseCase) Login(username, password string) (*domain.OrangTua, string, error) {
-	orangTua, err := o.orangTuaRepo.GetByUsername(username)
+func (o *orangTuaUseCase) Login(email, password string) (*domain.OrangTua, string, error) {
+	orangTua, err := o.orangTuaRepo.GetByEmail(email)
 	if err != nil {
-		return nil, "", domain.ErrUsernameWrong
+		return nil, "", domain.ErrEmailNotFound
 	}
 
 	err = bcrypt.CompareHashAndPassword([]byte(orangTua.Password), []byte(password))
