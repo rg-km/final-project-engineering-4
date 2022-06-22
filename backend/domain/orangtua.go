@@ -4,7 +4,6 @@ package domain
 
 type OrangTua struct {
 	ID           int64  `json:"id_wali"`
-	Username     string `json:"username"`
 	Email        string `json:"email"`
 	Password     string `json:"password"`
 	Nama         string `json:"nama"`
