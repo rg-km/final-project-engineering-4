@@ -19,8 +19,11 @@ type ErrorResponse struct {
 func NewGuruHandler(guruUseCase domain.GuruUseCase, r *gin.Engine) {
 	handler := &guruHandler{guruUseCase}
 
-	r.POST("/api/guru/signup", handler.Register)
-	r.POST("/api/guru/login", handler.Login)
+	guru := r.Group("/api/guru")
+	{
+		guru.POST("/signup", handler.Register)
+		guru.POST("/login", handler.Login)
+	}
 }
 
 func (g *guruHandler) Register(c *gin.Context) {
