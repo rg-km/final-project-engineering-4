@@ -1,10 +1,8 @@
 package usecase
 
 import (
-	"time"
-
-	"github.com/golang-jwt/jwt/v4"
 	"github.com/rg-km/final-project-engineering-4/backend/domain"
+	"github.com/rg-km/final-project-engineering-4/backend/util"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -45,15 +43,10 @@ func (g *guruUseCase) Login(email, password string) (*domain.Guru, string, error
 	if err != nil {
 		return nil, "", domain.ErrPasswordWrong
 	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"id":   guru.ID,
-		"role": "Guru",
-		"exp":  time.Now().Add(time.Hour * 24).Unix(),
-	})
-	tokenString, err := token.SignedString([]byte("secret"))
+	token, err := util.GenerateToken(guru.ID, "Guru")
 	if err != nil {
 		return nil, "", err
 	}
 
-	return guru, tokenString, nil
+	return guru, token, nil
 }

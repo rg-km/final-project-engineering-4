@@ -4,7 +4,6 @@ package domain
 
 type Guru struct {
 	ID           int64  `json:"id,omitempty"`
-	Username     string `json:"username,omitempty"`
 	Email        string `json:"email,omitempty"`
 	Password     string `json:"password,omitempty"`
 	Nama         string `json:"nama,omitempty"`
