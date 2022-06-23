@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
+	_detailKelasRepository "github.com/rg-km/final-project-engineering-4/backend/detail_kelas_siswa/repository/sqlite"
 	_guruHandler "github.com/rg-km/final-project-engineering-4/backend/guru/delivery/http"
 	_guruRepository "github.com/rg-km/final-project-engineering-4/backend/guru/repository/sqlite"
 	_guruUseCase "github.com/rg-km/final-project-engineering-4/backend/guru/usecase"
@@ -31,11 +32,12 @@ func main() {
 	siswaRepostory := _siswaRepository.NewSiswaRepository(db)
 	guruRepository := _guruRepository.NewGuruRepository(db)
 	kelasRepository := _kelasRepository.NewKelasRepository(db)
+	detailKelasRepository := _detailKelasRepository.NewDetailKelasSiswaRepository(db)
 
 	orangTuaUseCase := _orangTuaUseCase.NewOrangTuaUseCase(orangTuaRepository, siswaRepostory)
 	siswaUseCase := _siswaUseCase.NewSiswaUseCase(siswaRepostory)
 	guruUseCase := _guruUseCase.NewGuruUseCase(guruRepository)
-	kelasUseCase := _kelasUseCase.NewKelasUseCase(kelasRepository, guruRepository)
+	kelasUseCase := _kelasUseCase.NewKelasUseCase(kelasRepository, guruRepository, siswaRepostory, detailKelasRepository)
 
 	_orangTuaHandler.NewOrangTuaHandler(orangTuaUseCase, r)
 	_siswaHandler.NewSiswaHandler(siswaUseCase, r)

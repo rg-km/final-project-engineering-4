@@ -19,5 +19,5 @@ type KelasRepository interface {
 
 type KelasUseCase interface {
 	CreateKelas(kelas Kelas) (*Kelas, error)
-	// JoinKelas(siswaID int64, code string) (*Kelas, error)
+	JoinKelas(emailSiswa, code string) (*Kelas, error)
 }
