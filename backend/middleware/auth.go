@@ -37,7 +37,7 @@ func Auth(role string) gin.HandlerFunc {
 			return
 		}
 
-		if claims.Role != role || role == "all" {
+		if role != "all" && claims.Role != role {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
 				"code":      http.StatusBadRequest,
@@ -49,6 +49,7 @@ func Auth(role string) gin.HandlerFunc {
 		}
 
 		c.Set("Email", claims.Email)
+		c.Set("Role", claims.Role)
 		c.Next()
 	}
 }

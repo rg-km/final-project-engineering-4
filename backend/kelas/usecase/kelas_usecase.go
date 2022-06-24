@@ -9,14 +9,16 @@ type kelasUseCase struct {
 	kelasRepo       domain.KelasRepository
 	guruRepo        domain.GuruRepository
 	siswaRepo       domain.SiswaRepository
+	orangTuaRepo    domain.OrangTuaRepository
 	detailKelasRepo domain.DetailKelasSiswaRepository
 }
 
-func NewKelasUseCase(kelasRepo domain.KelasRepository, guruRepo domain.GuruRepository, siswaRepo domain.SiswaRepository, detailKelasRepo domain.DetailKelasSiswaRepository) domain.KelasUseCase {
+func NewKelasUseCase(kelasRepo domain.KelasRepository, guruRepo domain.GuruRepository, siswaRepo domain.SiswaRepository, orangTuaRepo domain.OrangTuaRepository, detailKelasRepo domain.DetailKelasSiswaRepository) domain.KelasUseCase {
 	return &kelasUseCase{
 		kelasRepo:       kelasRepo,
 		guruRepo:        guruRepo,
 		siswaRepo:       siswaRepo,
+		orangTuaRepo:    orangTuaRepo,
 		detailKelasRepo: detailKelasRepo,
 	}
 }
@@ -67,4 +69,53 @@ func (k *kelasUseCase) JoinKelas(emailSiswa, code string) (*domain.Kelas, error)
 	}
 
 	return kelas, nil
+}
+
+func (k *kelasUseCase) FetchKelas(role, email string) ([]domain.Kelas, error) {
+	var res []domain.Kelas
+
+	if role == "Siswa" || role == "Orang Tua" {
+		var id int64
+
+		if role == "Siswa" {
+			siswa, err := k.siswaRepo.GetByEmail(email)
+			if err != nil {
+				return nil, domain.ErrEmailNotFound
+			}
+			id = siswa.ID
+		} else {
+			orangtua, err := k.orangTuaRepo.GetByEmail(email)
+			if err != nil {
+				return nil, domain.ErrEmailNotFound
+			}
+			id = orangtua.Siswa.ID
+		}
+
+		detailKelas, err := k.detailKelasRepo.GetBySiswaID(id)
+		if err != nil {
+			return nil, domain.ErrDetailKelasNotFound
+		}
+
+		for _, dt := range detailKelas {
+			kelas, _ := k.kelasRepo.GetByID(dt.Kelas.ID)
+			kelas.Guru = nil
+			res = append(res, *kelas)
+		}
+	} else if role == "Guru" {
+		guru, err := k.guruRepo.GetByEmail(email)
+		if err != nil {
+			return nil, domain.ErrEmailNotFound
+		}
+
+		res, err = k.kelasRepo.GetByGuruID(guru.ID)
+		if err != nil {
+			return nil, err
+		}
+
+		for _, r := range res {
+			r.Guru = nil
+		}
+	}
+
+	return res, nil
 }

@@ -18,9 +18,32 @@ func NewKelasHandler(kelasUseCase domain.KelasUseCase, r *gin.Engine) {
 
 	kelas := r.Group("/api/kelas")
 	{
+		kelas.GET("/", middleware.Auth("all"), handler.FetchKelasSiswa)
 		kelas.POST("/create", middleware.Auth("Guru"), handler.CreateKelas)
 		kelas.POST("/join", middleware.Auth("Siswa"), handler.JoinKelas)
 	}
+}
+
+func (k *kelasHandler) FetchKelasSiswa(c *gin.Context) {
+	email := c.GetString("Email")
+	role := c.GetString("Role")
+
+	res, err := k.kelasUseCase.FetchKelas(role, email)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
+			"code":      http.StatusNotFound,
+			"message":   err.Error(),
+			"data":      nil,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
+		"code":      http.StatusOK,
+		"data":      res,
+	})
 }
 
 func (k *kelasHandler) CreateKelas(c *gin.Context) {
