@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
 	_detailKelasRepository "github.com/rg-km/final-project-engineering-4/backend/detail_kelas_siswa/repository/sqlite"
@@ -27,6 +28,9 @@ func main() {
 	}
 
 	r := gin.Default()
+	r.Use(cors.New(cors.Config{
+		AllowAllOrigins: true,
+	}))
 
 	orangTuaRepository := _orangTuaRepository.NewOrangTuaRepository(db)
 	siswaRepostory := _siswaRepository.NewSiswaRepository(db)
