@@ -14,19 +14,19 @@ const initialInput = {
 const Dashboard = () => {
     let data = [
         {
-            id_class: 1,
+            id_class: "qwerty",
             nama_kelas: "9F",
             kode_kelas: "qwertyasdf",
             keterangan: "Kelas dengan wali kelas yang bernama Bu Nurul Huda",
         },
         {
-            id_class: 2,
+            id_class: "qwertu",
             nama_kelas: "9E",
             kode_kelas: "qwertyuiop",
             keterangan: "Kelas dengan wali kelas yang bernama Bu Sum",
         },
         {
-            id_class: 3,
+            id_class: "qwerti",
             nama_kelas: "9D",
             kode_kelas: "zxcvasdf",
             keterangan: "Kelas dengan wali kelas yang bernama Pak Rizky",
@@ -54,7 +54,7 @@ const Dashboard = () => {
                 <AddClass to={PATH.DASHBOARD} onClick={onOpen} />
                 {
                     classes.length > 0 && classes.map((kelas, index) => {
-                        return <ClassItem key={index} to={PATH.DASHBOARD} kelas={kelas} />
+                        return <ClassItem key={index} to={PATH.CLASS + kelas.id_class} kelas={kelas} />
                     })
                 }
             </SimpleGrid>

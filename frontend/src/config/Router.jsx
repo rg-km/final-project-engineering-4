@@ -8,6 +8,7 @@ import Register from '../pages/Auth/Register';
 import Dashboard from '@pages/dashboard/Dashboard';
 import Account from '@pages/dashboard/Account';
 import NoPage from '@pages/NoPage';
+import Class from '@pages/class/Class';
 
 function Router() {
   return (
@@ -32,6 +33,7 @@ function Router() {
         />
         <Route path={PATH.DASHBOARD} element={<Dashboard />} />
         <Route path={PATH.ACCOUNT} element={<Account />} />
+        <Route path={PATH.CLASS + ":id"} element={<Class />} />
         <Route path={PATH.NOPAGE} element={<NoPage />} />
       </Routes>
     </div>

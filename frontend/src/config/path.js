@@ -4,5 +4,6 @@ export const PATH = {
   REGISTER: '/register',
   DASHBOARD: '/dashboard',
   ACCOUNT: '/account',
-  NOPAGE: '*'
+  NOPAGE: '*',
+  CLASS: "/class/"
 };
