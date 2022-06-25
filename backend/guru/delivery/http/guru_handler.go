@@ -34,7 +34,7 @@ func (g *guruHandler) Register(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
 			"code":      http.StatusBadRequest,
-			"message":   err.Error(),
+			"message":   domain.ErrInvalidRequest,
 			"data":      nil,
 		})
 		return
@@ -42,9 +42,9 @@ func (g *guruHandler) Register(c *gin.Context) {
 
 	data, err := g.guruUseCase.Register(Guru)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
-			"code":      http.StatusBadRequest,
+			"code":      http.StatusInternalServerError,
 			"message":   err.Error(),
 			"data":      nil,
 		})
@@ -66,7 +66,7 @@ func (g *guruHandler) Login(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
 			"code":      http.StatusBadRequest,
-			"message":   err.Error(),
+			"message":   domain.ErrInvalidRequest,
 			"data":      nil,
 		})
 		return
@@ -81,7 +81,7 @@ func (g *guruHandler) Login(c *gin.Context) {
 			code = http.StatusInternalServerError
 		}
 
-		c.JSON(http.StatusUnauthorized, gin.H{
+		c.JSON(code, gin.H{
 			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
 			"code":      code,
 			"message":   err.Error(),

@@ -39,7 +39,7 @@ func (o *orangTuaHandler) Register(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
 			"code":      http.StatusBadRequest,
-			"message":   err.Error(),
+			"message":   domain.ErrInvalidRequest.Error(),
 			"data":      nil,
 		})
 		return
@@ -63,10 +63,10 @@ func (o *orangTuaHandler) Register(c *gin.Context) {
 		if err == domain.ErrEmailSiswaNotFound {
 			code = http.StatusNotFound
 		} else {
-			code = http.StatusBadRequest
+			code = http.StatusInternalServerError
 		}
 
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(code, gin.H{
 			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
 			"code":      code,
 			"message":   err.Error(),
@@ -90,7 +90,7 @@ func (o *orangTuaHandler) Login(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
 			"code":      http.StatusBadRequest,
-			"message":   err.Error(),
+			"message":   domain.ErrInvalidRequest.Error(),
 			"data":      nil,
 		})
 		return
@@ -107,7 +107,7 @@ func (o *orangTuaHandler) Login(c *gin.Context) {
 			code = http.StatusInternalServerError
 		}
 
-		c.JSON(http.StatusUnauthorized, gin.H{
+		c.JSON(code, gin.H{
 			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
 			"code":      code,
 			"message":   err.Error(),

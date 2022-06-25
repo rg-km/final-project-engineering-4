@@ -2,7 +2,7 @@ package usecase
 
 import (
 	"github.com/rg-km/final-project-engineering-4/backend/domain"
-	"github.com/rg-km/final-project-engineering-4/backend/util"
+	"github.com/rg-km/final-project-engineering-4/backend/utils"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -45,7 +45,7 @@ func (s *siswaUseCase) Login(email, password string) (*domain.Siswa, string, err
 		return nil, "", domain.ErrPasswordWrong
 	}
 
-	token, err := util.GenerateToken(siswa.ID, "Siswa")
+	token, err := utils.GenerateToken(siswa.Email, "Siswa")
 	if err != nil {
 		return nil, "", err
 	}
