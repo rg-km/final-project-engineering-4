@@ -7,6 +7,7 @@ import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
 import Dashboard from '@pages/dashboard/Dashboard';
 import Account from '@pages/dashboard/Account';
+import NoPage from '@pages/NoPage';
 
 function Router() {
   return (
@@ -31,6 +32,7 @@ function Router() {
         />
         <Route path={PATH.DASHBOARD} element={<Dashboard />} />
         <Route path={PATH.ACCOUNT} element={<Account />} />
+        <Route path={PATH.NOPAGE} element={<NoPage />} />
       </Routes>
     </div>
   );
