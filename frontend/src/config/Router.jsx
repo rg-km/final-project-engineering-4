@@ -5,6 +5,8 @@ import { PATH } from './path';
 import RoleSelection from '../pages/Auth/RoleSelection';
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
+import Dashboard from '@pages/dashboard/Dashboard';
+import Account from '@pages/dashboard/Account';
 
 function Router() {
   return (
@@ -27,6 +29,8 @@ function Router() {
           path={`${PATH.REGISTER}/${USER_ROLES.STUDENT.value}`}
           element={<Register role={USER_ROLES.STUDENT} />}
         />
+        <Route path={PATH.DASHBOARD} element={<Dashboard />} />
+        <Route path={PATH.ACCOUNT} element={<Account />} />
       </Routes>
     </div>
   );
