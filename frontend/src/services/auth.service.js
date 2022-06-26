@@ -26,7 +26,7 @@ const login = async (role, email, password) => {
     return {
       payload: error.response.data,
       status: error.response.status,
-      message: error.message,
+      message: error?.response?.data?.message || error.message,
       success: false,
     };
   }
