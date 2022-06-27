@@ -17,7 +17,6 @@ import {
 import InputText from '@components/InputText';
 import { PATH } from '@config/path';
 import { useState } from 'react';
-import AddClass from './components/AddClass';
 import ClassItem from './components/ClassItem';
 import Navbar from './components/Navbar';
 
@@ -66,11 +65,10 @@ const Dashboard = () => {
             <Heading fontSize={{ base: 'xs', md: 'md' }} mb={{ base: 2 }}>
               Daftar Kelas Anda
             </Heading>
-            <Button>Tambah Kelas Baru</Button>
+            <Button onClick={onOpen}>Tambah Kelas Baru</Button>
           </Stack>
 
           <SimpleGrid columns={{ base: 2, md: 4 }} spacing={{ base: 2, md: 4 }}>
-            <AddClass to={PATH.DASHBOARD} onClick={onOpen} />
             {studentClasses.length > 0 &&
               studentClasses.map((kelas, index) => {
                 return <ClassItem key={index} to={PATH.DASHBOARD} kelas={kelas} />;
