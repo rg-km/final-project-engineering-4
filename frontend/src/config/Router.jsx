@@ -10,6 +10,7 @@ import Dashboard from '@pages/Dashboard/Dashboard';
 import Account from '@pages/Dashboard/Account';
 import NoPage from '@pages/NoPage';
 import { useAuthStore } from '@store/auth.store';
+import KelasDetail from '@pages/Kelas/KelasDetail';
 
 const PATH_TEACHER = USER_ROLES.TEACHER.value;
 const PATH_PARENT = USER_ROLES.PARENT.value;
@@ -44,6 +45,8 @@ function Router() {
           <Route element={<DashboardLayout />}>
             <Route path={PATH.DASHBOARD} element={<Dashboard />} />
             <Route path={PATH.ACCOUNT} element={<Account />} />
+            <Route path={`${PATH.KELAS}/:id`} element={<KelasDetail />} />
+            <Route path={`${PATH.KELAS}/:id`} element={<KelasDetail />} />
           </Route>
         </Route>
 
