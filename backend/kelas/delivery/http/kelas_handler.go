@@ -2,6 +2,7 @@ package http
 
 import (
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -19,6 +20,7 @@ func NewKelasHandler(kelasUseCase domain.KelasUseCase, r *gin.Engine) {
 	kelas := r.Group("/api/kelas")
 	{
 		kelas.GET("/", middleware.Auth("all"), handler.FetchKelasSiswa)
+		kelas.GET("/:id", middleware.Auth("all"), handler.FetchKelasByID)
 		kelas.POST("/create", middleware.Auth("Guru"), handler.CreateKelas)
 		kelas.POST("/join", middleware.Auth("Siswa"), handler.JoinKelas)
 	}
@@ -80,6 +82,39 @@ func (k *kelasHandler) CreateKelas(c *gin.Context) {
 		"code":      http.StatusOK,
 		"message":   "Kelas Berhasil Dibuat",
 		"data":      res,
+	})
+}
+
+func (k *kelasHandler) FetchKelasByID(c *gin.Context) {
+	email := c.GetString("Email")
+	role := c.GetString("Role")
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
+			"code":      http.StatusBadRequest,
+			"message":   domain.ErrInvalidRequest.Error(),
+			"data":      nil,
+		})
+		return
+	}
+
+	kelas, err := k.kelasUseCase.FetchKelasByID(role, email, int64(id))
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
+			"code":      http.StatusNotFound,
+			"message":   err.Error(),
+			"data":      nil,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"timestamp": time.Now().Format("Mon, Jan 2 2006 15:04:05"),
+		"code":      http.StatusOK,
+		"data":      kelas,
 	})
 }
 
