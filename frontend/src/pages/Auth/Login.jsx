@@ -20,7 +20,7 @@ const Login = ({ role }) => {
   const { handleLogin } = useAuthStore((state) => state); // action
 
   const handleSubmit = async (values) => {
-    handleLogin(role.value, values.email, values.password, (success, message) => {
+    handleLogin(role, values.email, values.password, (success, message) => {
       toast({
         status: success ? 'success' : 'error',
         position: 'top-right',

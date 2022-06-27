@@ -6,14 +6,14 @@ const useAuthStore = create(
   devtools(
     persist(
       (set) => ({
-        token: '',
+        token: null,
         user: null,
         role: null,
         isLoading: false,
         handleLogin: async (role, email, password, callback) => {
           set({ isLoading: true });
 
-          const response = await SERVICE_AUTH.login(role, email, password);
+          const response = await SERVICE_AUTH.login(role.value, email, password);
 
           set({
             token: response.success ? response.payload.token : null,
@@ -33,6 +33,7 @@ const useAuthStore = create(
 
           callback(response.success, response.message);
         },
+        handleLogout: () => set({ token: null, user: null, role: null }),
       }),
       {
         name: 'auth-store',
