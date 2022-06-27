@@ -64,3 +64,9 @@ func (p *presensiRepository) GetByDetailKelasID(id int64) ([]domain.Presensi, er
 
 	return res, nil
 }
+
+func (p *presensiRepository) Create(presensi domain.Presensi) error {
+	query := `INSERT INTO presensi (id_dt_kelassiswa, tanggal, jam, status_hadir) VALUES (?, ?, ?,?)`
+	_, err := p.db.Exec(query, presensi.DetailKelasSiswa.ID, presensi.Tanggal, presensi.Jam, presensi.StatusHadir)
+	return err
+}

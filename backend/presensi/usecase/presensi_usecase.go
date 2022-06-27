@@ -9,25 +9,27 @@ type presensiUseCase struct {
 	detailKelasRepo domain.DetailKelasSiswaRepository
 	presensiRepo    domain.PresensiRepository
 	siswaRepo       domain.SiswaRepository
+	guruRepo        domain.GuruRepository
 }
 
-func NewPresensiUseCase(orangTuaRepo domain.OrangTuaRepository, detailKelasRepo domain.DetailKelasSiswaRepository, presensiRepo domain.PresensiRepository, siswaRepo domain.SiswaRepository) domain.PresensiUseCase {
+func NewPresensiUseCase(orangTuaRepo domain.OrangTuaRepository, detailKelasRepo domain.DetailKelasSiswaRepository, presensiRepo domain.PresensiRepository, siswaRepo domain.SiswaRepository, guruRepo domain.GuruRepository) domain.PresensiUseCase {
 	return &presensiUseCase{
 		orangTuaRepo:    orangTuaRepo,
 		detailKelasRepo: detailKelasRepo,
 		presensiRepo:    presensiRepo,
 		siswaRepo:       siswaRepo,
+		guruRepo:        guruRepo,
 	}
 }
 
-func (p *presensiUseCase) FetchPresensi(idKelas int64, emailOrtu string) ([]domain.Presensi, error) {
+func (p *presensiUseCase) FetchPresensiSiswa(idKelas int64, emailOrtu string) ([]domain.Presensi, error) {
 	var presensi []domain.Presensi
 
 	ortu, err := p.orangTuaRepo.GetByEmail(emailOrtu)
 	if err != nil {
 		return nil, domain.ErrEmailNotFound
 	}
-	detailKelas, err := p.detailKelasRepo.GetBySiswaID(idKelas)
+	detailKelas, err := p.detailKelasRepo.GetByKelasID(idKelas)
 	if err != nil {
 		return nil, domain.ErrDetailKelasNotFound
 	}
@@ -51,4 +53,31 @@ func (p *presensiUseCase) FetchPresensi(idKelas int64, emailOrtu string) ([]doma
 	}
 
 	return presensi, nil
+}
+
+func (p *presensiUseCase) CreatePresensiSiswa(idSiswa, idKelas int64, presensi domain.Presensi) (*domain.Presensi, error) {
+	detailKelas, err := p.detailKelasRepo.GetByKelasID(idKelas)
+	if err != nil {
+		return nil, domain.ErrDetailKelasNotFound
+	}
+
+	for _, dt := range detailKelas {
+		if dt.Siswa.ID == idSiswa {
+			presensi.DetailKelasSiswa = &domain.DetailKelasSiswa{
+				ID: dt.ID,
+			}
+			break
+		}
+	}
+	// _, err = p.siswaRepo.GetByEmail(presensi.DetailKelasSiswa.Siswa.Email)
+	// if err != nil {
+	// 	return nil, domain.ErrEmailSiswaNotFound
+	// }
+
+	err = p.presensiRepo.Create(presensi)
+	if err != nil {
+		return nil, err
+	}
+
+	return &presensi, nil
 }

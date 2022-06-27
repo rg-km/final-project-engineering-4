@@ -13,8 +13,10 @@ type Presensi struct {
 type PresensiRepository interface {
 	GetByID(id int64) (*Presensi, error)
 	GetByDetailKelasID(id int64) ([]Presensi, error)
+	Create(presensi Presensi) error
 }
 
 type PresensiUseCase interface {
-	FetchPresensi(idKelas int64, emailOrtu string) ([]Presensi, error)
+	FetchPresensiSiswa(idKelas int64, emailOrtu string) ([]Presensi, error)
+	CreatePresensiSiswa(idSiswa, idKelas int64, presensi Presensi) (*Presensi, error)
 }

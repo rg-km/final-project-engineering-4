@@ -44,7 +44,7 @@ func main() {
 	siswaUseCase := _siswaUseCase.NewSiswaUseCase(siswaRepostory)
 	guruUseCase := _guruUseCase.NewGuruUseCase(guruRepository)
 	kelasUseCase := _kelasUseCase.NewKelasUseCase(kelasRepository, guruRepository, siswaRepostory, orangTuaRepository, detailKelasRepository)
-	presensiUseCase := _presensiUseCase.NewPresensiUseCase(orangTuaRepository, detailKelasRepository, presensiRepository, siswaRepostory)
+	presensiUseCase := _presensiUseCase.NewPresensiUseCase(orangTuaRepository, detailKelasRepository, presensiRepository, siswaRepostory, guruRepository)
 
 	_orangTuaHandler.NewOrangTuaHandler(orangTuaUseCase, r)
 	_siswaHandler.NewSiswaHandler(siswaUseCase, r)
