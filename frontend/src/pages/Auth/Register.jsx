@@ -5,6 +5,7 @@ import { PATH } from '@config/path';
 import { USER_ROLES } from '@utils/constants';
 import RegisterTeacher from './forms/RegisterTeacher';
 import RegisterParent from './forms/RegisterParent';
+import RegisterStudent from './forms/RegisterStudent';
 
 const Register = ({ role }) => {
   return (
@@ -14,6 +15,7 @@ const Register = ({ role }) => {
       <Stack>
         {role.value === USER_ROLES.TEACHER.value && <RegisterTeacher />}
         {role.value === USER_ROLES.PARENT.value && <RegisterParent />}
+        {role.value === USER_ROLES.STUDENT.value && <RegisterStudent />}
 
         <Text textAlign={'center'} fontSize={'sm'}>
           Sudah punya akun?{' '}
