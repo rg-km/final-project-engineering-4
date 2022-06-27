@@ -16,6 +16,9 @@ import (
 	_orangTuaHandler "github.com/rg-km/final-project-engineering-4/backend/orangtua/delivery/http"
 	_orangTuaRepository "github.com/rg-km/final-project-engineering-4/backend/orangtua/repository/sqlite"
 	_orangTuaUseCase "github.com/rg-km/final-project-engineering-4/backend/orangtua/usecase"
+	_presensiHandler "github.com/rg-km/final-project-engineering-4/backend/presensi/delivery/http"
+	_presensiRepository "github.com/rg-km/final-project-engineering-4/backend/presensi/repository/sqlite"
+	_presensiUseCase "github.com/rg-km/final-project-engineering-4/backend/presensi/usecase"
 	_siswaHandler "github.com/rg-km/final-project-engineering-4/backend/siswa/delivery/http"
 	_siswaRepository "github.com/rg-km/final-project-engineering-4/backend/siswa/repository/sqlite"
 	_siswaUseCase "github.com/rg-km/final-project-engineering-4/backend/siswa/usecase"
@@ -35,16 +38,19 @@ func main() {
 	guruRepository := _guruRepository.NewGuruRepository(db)
 	kelasRepository := _kelasRepository.NewKelasRepository(db)
 	detailKelasRepository := _detailKelasRepository.NewDetailKelasSiswaRepository(db)
+	presensiRepository := _presensiRepository.NewPresensiRepository(db)
 
 	orangTuaUseCase := _orangTuaUseCase.NewOrangTuaUseCase(orangTuaRepository, siswaRepostory)
 	siswaUseCase := _siswaUseCase.NewSiswaUseCase(siswaRepostory)
 	guruUseCase := _guruUseCase.NewGuruUseCase(guruRepository)
 	kelasUseCase := _kelasUseCase.NewKelasUseCase(kelasRepository, guruRepository, siswaRepostory, orangTuaRepository, detailKelasRepository)
+	presensiUseCase := _presensiUseCase.NewPresensiUseCase(orangTuaRepository, detailKelasRepository, presensiRepository, siswaRepostory)
 
 	_orangTuaHandler.NewOrangTuaHandler(orangTuaUseCase, r)
 	_siswaHandler.NewSiswaHandler(siswaUseCase, r)
 	_guruHandler.NewGuruHandler(guruUseCase, r)
 	_kelasHandler.NewKelasHandler(kelasUseCase, r)
+	_presensiHandler.NewPresensiHandler(presensiUseCase, r)
 
 	r.Run(":8080")
 }
