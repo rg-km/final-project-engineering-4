@@ -16,6 +16,7 @@ type Guru struct {
 }
 
 type GuruRepository interface {
+	GetByID(id int64) (*Guru, error)
 	GetByEmail(email string) (*Guru, error)
 	Create(guru Guru) error
 }

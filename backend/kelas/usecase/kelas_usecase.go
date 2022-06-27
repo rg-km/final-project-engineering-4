@@ -119,3 +119,64 @@ func (k *kelasUseCase) FetchKelas(role, email string) ([]domain.Kelas, error) {
 
 	return res, nil
 }
+
+func (k *kelasUseCase) FetchKelasByID(role, email string, kelasID int64) (*domain.Kelas, error) {
+	var res *domain.Kelas
+
+	if role == "Siswa" || role == "Orang Tua" {
+		var id int64
+
+		if role == "Siswa" {
+			siswa, err := k.siswaRepo.GetByEmail(email)
+			if err != nil {
+				return nil, domain.ErrEmailNotFound
+			}
+			id = siswa.ID
+		} else {
+			orangtua, err := k.orangTuaRepo.GetByEmail(email)
+			if err != nil {
+				return nil, domain.ErrEmailNotFound
+			}
+			id = orangtua.Siswa.ID
+		}
+
+		detailKelas, err := k.detailKelasRepo.GetBySiswaID(id)
+		if err != nil {
+			return nil, domain.ErrDetailKelasNotFound
+		}
+
+		found := false
+		for _, dt := range detailKelas {
+			if dt.Kelas.ID == kelasID {
+				found = true
+				res, _ = k.kelasRepo.GetByID(dt.Kelas.ID)
+				guru, _ := k.guruRepo.GetByID(res.Guru.ID)
+				res.Guru = guru
+				break
+			}
+		}
+
+		if !found {
+			return nil, domain.ErrKelasNotFound
+		}
+	} else if role == "Guru" {
+		guru, err := k.guruRepo.GetByEmail(email)
+		if err != nil {
+			return nil, domain.ErrEmailNotFound
+		}
+
+		kelas, err := k.kelasRepo.GetByID(kelasID)
+		if err != nil {
+			return nil, err
+		}
+
+		if kelas.Guru.ID != guru.ID {
+			return nil, domain.ErrKelasNotFound
+		}
+
+		res = kelas
+		res.Guru = guru
+	}
+
+	return res, nil
+}

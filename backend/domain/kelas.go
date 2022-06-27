@@ -21,6 +21,7 @@ type KelasRepository interface {
 
 type KelasUseCase interface {
 	FetchKelas(role, email string) ([]Kelas, error)
+	FetchKelasByID(role, email string, id int64) (*Kelas, error)
 	CreateKelas(kelas Kelas) (*Kelas, error)
 	JoinKelas(emailSiswa, code string) (*Kelas, error)
 }

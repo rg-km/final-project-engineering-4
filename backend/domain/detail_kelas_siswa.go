@@ -10,6 +10,7 @@ type DetailKelasSiswa struct {
 
 type DetailKelasSiswaRepository interface {
 	GetBySiswaID(siswaID int64) ([]DetailKelasSiswa, error)
+	GetByKelasID(kelasID int64) ([]DetailKelasSiswa, error)
 	Create(detailKelas DetailKelasSiswa) error
 }
 
