@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 import InputText from '@components/InputText';
 import { PATH } from '@config/path';
+import { useAuthStore } from '@store/auth.store';
 import { useState } from 'react';
 import ClassItem from './components/ClassItem';
 import Navbar from './components/Navbar';
@@ -47,6 +48,7 @@ const initialInput = {
 };
 
 const Dashboard = () => {
+  const { role } = useAuthStore((state) => state);
   const studentClasses = DATA;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [input, setInput] = useState(initialInput);
@@ -81,19 +83,29 @@ const Dashboard = () => {
               <ModalHeader fontSize={{ base: 'md' }}>Tambah Kelas Baru</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <InputText
-                  type={'text'}
-                  label={'Nama Kelas'}
-                  value={input.nama_kelas}
-                  onChange={(e) => setInput({ ...input, nama_kelas: e.target.value })}
-                  required
-                />
-                <InputText
-                  type={'text'}
-                  label={'Keterangan'}
-                  value={input.keterangan}
-                  onChange={(e) => setInput({ ...input, keterangan: e.target.value })}
-                />
+                {
+                  role === "guru" ? <>
+                    <InputText
+                      type={'text'}
+                      label={'Nama Kelas'}
+                      value={input.nama_kelas}
+                      onChange={(e) => setInput({ ...input, nama_kelas: e.target.value })}
+                      required
+                    />
+                    <InputText
+                      type={'text'}
+                      label={'Keterangan'}
+                      value={input.keterangan}
+                      onChange={(e) => setInput({ ...input, keterangan: e.target.value })}
+                    />
+                  </> : <>
+                    <InputText
+                      type={'text'}
+                      label={'Kode Kelas'}
+                      required
+                    />
+                  </>
+                }
               </ModalBody>
               <ModalFooter>
                 <Button colorScheme="blue" onClick={handleSubmit} size={{ base: 'sm' }}>
