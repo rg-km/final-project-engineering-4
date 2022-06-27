@@ -27,18 +27,18 @@ const RegisterTeacher = () => {
   const { isLoading } = useAuthStore((state) => state); // data
   const { handleRegister } = useAuthStore((state) => state); // action
 
-  const handleSubmit = (values) => {
-    const data = {
-      nama: values.nama,
-      email: values.email,
-      jenis_kelamin: values.jenis_kelamin,
-      pendidikan: values.pendidikan,
-      agama: values.agama,
-      no_hp: values.no_hp,
-      alamat: values.alamat,
-      password: values.password,
-      confirm_password: values.confirm_password,
-    };
+  const handleSubmit = ({
+    nama,
+    email,
+    jenis_kelamin,
+    pendidikan,
+    agama,
+    no_hp,
+    alamat,
+    password,
+    confirm_password,
+  }) => {
+    const data = { nama, email, jenis_kelamin, pendidikan, agama, no_hp, alamat, password, confirm_password };
 
     handleRegister(USER_ROLES.TEACHER.value, data, (success, message) => {
       toast({
