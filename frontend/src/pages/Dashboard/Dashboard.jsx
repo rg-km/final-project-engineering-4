@@ -20,27 +20,7 @@ import { useAuthStore } from '@store/auth.store';
 import { useState } from 'react';
 import ClassItem from './components/ClassItem';
 import Navbar from './components/Navbar';
-
-const DATA = [
-  {
-    id_class: 1,
-    nama_kelas: '9F',
-    kode_kelas: 'qwertyasdf',
-    keterangan: 'Kelas dengan wali kelas yang bernama Bu Nurul Huda',
-  },
-  {
-    id_class: 2,
-    nama_kelas: '9E',
-    kode_kelas: 'qwertyuiop',
-    keterangan: 'Kelas dengan wali kelas yang bernama Bu Sum',
-  },
-  {
-    id_class: 3,
-    nama_kelas: '9D',
-    kode_kelas: 'zxcvasdf',
-    keterangan: 'Kelas dengan wali kelas yang bernama Pak Rizky',
-  },
-];
+import { DATA_KELAS } from './data/kelas.data';
 
 const initialInput = {
   nama_kelas: '',
@@ -49,7 +29,7 @@ const initialInput = {
 
 const Dashboard = () => {
   const { role } = useAuthStore((state) => state);
-  const studentClasses = DATA;
+  const studentClasses = DATA_KELAS;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [input, setInput] = useState(initialInput);
 
@@ -72,8 +52,8 @@ const Dashboard = () => {
 
           <SimpleGrid columns={{ base: 2, md: 4 }} spacing={{ base: 2, md: 4 }}>
             {studentClasses.length > 0 &&
-              studentClasses.map((kelas, index) => {
-                return <ClassItem key={index} to={PATH.DASHBOARD} kelas={kelas} />;
+              studentClasses.map((kelas) => {
+                return <ClassItem key={kelas.kode_kelas} to={PATH.DASHBOARD} kelas={kelas} />;
               })}
           </SimpleGrid>
 
@@ -83,8 +63,8 @@ const Dashboard = () => {
               <ModalHeader fontSize={{ base: 'md' }}>Tambah Kelas Baru</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                {
-                  role === "guru" ? <>
+                {role === 'guru' ? (
+                  <>
                     <InputText
                       type={'text'}
                       label={'Nama Kelas'}
@@ -98,14 +78,12 @@ const Dashboard = () => {
                       value={input.keterangan}
                       onChange={(e) => setInput({ ...input, keterangan: e.target.value })}
                     />
-                  </> : <>
-                    <InputText
-                      type={'text'}
-                      label={'Kode Kelas'}
-                      required
-                    />
                   </>
-                }
+                ) : (
+                  <>
+                    <InputText type={'text'} label={'Kode Kelas'} required />
+                  </>
+                )}
               </ModalBody>
               <ModalFooter>
                 <Button colorScheme="blue" onClick={handleSubmit} size={{ base: 'sm' }}>
