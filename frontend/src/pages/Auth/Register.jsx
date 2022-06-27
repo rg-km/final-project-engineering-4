@@ -4,6 +4,7 @@ import AuthContainer from './components/AuthContainer';
 import { PATH } from '@config/path';
 import { USER_ROLES } from '@utils/constants';
 import RegisterTeacher from './forms/RegisterTeacher';
+import RegisterParent from './forms/RegisterParent';
 
 const Register = ({ role }) => {
   return (
@@ -12,6 +13,7 @@ const Register = ({ role }) => {
       subtitle="Lengkapi form di bawah dengan menggunakan data Anda yang valid">
       <Stack>
         {role.value === USER_ROLES.TEACHER.value && <RegisterTeacher />}
+        {role.value === USER_ROLES.PARENT.value && <RegisterParent />}
 
         <Text textAlign={'center'} fontSize={'sm'}>
           Sudah punya akun?{' '}
