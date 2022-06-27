@@ -46,7 +46,7 @@ const Dashboard = () => {
       <SimpleGrid columns={{ base: 2, md: 4 }} spacing={{ base: 2, md: 4 }}>
         {studentClasses.length > 0 &&
           studentClasses.map((kelas) => {
-            return <ClassItem key={kelas.kode_kelas} to={PATH.DASHBOARD} kelas={kelas} />;
+            return <ClassItem key={kelas.kode_kelas} to={`${PATH.KELAS}/${kelas.kode_kelas}`} kelas={kelas} />;
           })}
       </SimpleGrid>
 
