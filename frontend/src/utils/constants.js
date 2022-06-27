@@ -1,5 +1,5 @@
 export const APP = {
-  name: 'KelasKu',
+  name: 'Kelas Station',
   version: '1.0.0',
   copyright: '© copyright 2022 Engineering 4 Final Project Ruangguru CAMP',
 };

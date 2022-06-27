@@ -13,7 +13,14 @@ type Kelas struct {
 }
 
 type KelasRepository interface {
+	GetByID(id int64) (*Kelas, error)
+	GetByGuruID(id int64) ([]Kelas, error)
+	GetByCode(code string) (*Kelas, error)
+	Create(kelas Kelas) error
 }
 
 type KelasUseCase interface {
+	FetchKelas(role, email string) ([]Kelas, error)
+	CreateKelas(kelas Kelas) (*Kelas, error)
+	JoinKelas(emailSiswa, code string) (*Kelas, error)
 }

@@ -5,7 +5,7 @@ const AuthBackground = ({ children }) => {
   return (
     <Box
       bgImage={require('@images/picture/bg_auth.jpg')}
-      height={'100vh'}
+      minH={'100vh'}
       display={'flex'}
       bgRepeat={'no-repeat'}
       bgPosition={'center'}

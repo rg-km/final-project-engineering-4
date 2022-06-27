@@ -5,7 +5,10 @@
 package mocks
 
 import (
+	reflect "reflect"
+
 	gomock "github.com/golang/mock/gomock"
+	domain "github.com/rg-km/final-project-engineering-4/backend/domain"
 )
 
 // MockKelasRepository is a mock of KelasRepository interface.
@@ -31,6 +34,35 @@ func (m *MockKelasRepository) EXPECT() *MockKelasRepositoryMockRecorder {
 	return m.recorder
 }
 
+// Create mocks base method.
+func (m *MockKelasRepository) Create(arg0 domain.Kelas) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Create", arg0)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Create indicates an expected call of Create.
+func (mr *MockKelasRepositoryMockRecorder) Create(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockKelasRepository)(nil).Create), arg0)
+}
+
+// GetByCode mocks base method.
+func (m *MockKelasRepository) GetByCode(arg0 string) (*domain.Kelas, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetByCode", arg0)
+	ret0, _ := ret[0].(*domain.Kelas)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetByCode indicates an expected call of GetByCode.
+func (mr *MockKelasRepositoryMockRecorder) GetByCode(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByCode", reflect.TypeOf((*MockKelasRepository)(nil).GetByCode), arg0)
+}
+
 // MockKelasUseCase is a mock of KelasUseCase interface.
 type MockKelasUseCase struct {
 	ctrl     *gomock.Controller
@@ -52,4 +84,19 @@ func NewMockKelasUseCase(ctrl *gomock.Controller) *MockKelasUseCase {
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockKelasUseCase) EXPECT() *MockKelasUseCaseMockRecorder {
 	return m.recorder
+}
+
+// CreateKelas mocks base method.
+func (m *MockKelasUseCase) CreateKelas(arg0 domain.Kelas) (*domain.Kelas, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateKelas", arg0)
+	ret0, _ := ret[0].(*domain.Kelas)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateKelas indicates an expected call of CreateKelas.
+func (mr *MockKelasUseCaseMockRecorder) CreateKelas(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateKelas", reflect.TypeOf((*MockKelasUseCase)(nil).CreateKelas), arg0)
 }
