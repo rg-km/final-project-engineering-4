@@ -4,6 +4,14 @@ export const APP = {
   copyright: '© copyright 2022 Engineering 4 Final Project Ruangguru CAMP',
 };
 
+export const FEATURES = {
+  PRESENSI: {
+    value: 'presensi',
+    title: 'Presensi',
+    icon: null,
+  },
+};
+
 export const USER_ROLES = {
   TEACHER: {
     value: 'guru',

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import InputPassword from 'src/components/InputPassword';
 import InputText from 'src/components/InputText';
 
-const RegisterParentForm = () => {
+const RegisterParent = () => {
   const initilInput = {
     nama: '',
     username: '',
@@ -65,4 +65,4 @@ const RegisterParentForm = () => {
   );
 };
 
-export default RegisterParentForm;
+export default RegisterParent;

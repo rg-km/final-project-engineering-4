@@ -17,19 +17,45 @@ const login = async (role, email, password) => {
     const response = await http.post(baseURL, data);
 
     return {
-      payload: response.data,
-      status: response.code,
-      message: response.message,
       success: true,
+      message: response.data.message,
+      status: response.data.code,
+      payload: response.data.data,
     };
   } catch (error) {
     return {
-      payload: error.response.data,
-      status: error.response.status,
-      message: error?.response?.data?.message || error.message,
       success: false,
+      message: error?.response?.data?.message || error.message,
+      status: error.response.status,
+      payload: error.response.data,
     };
   }
 };
 
-export const SERVICE_AUTH = { login };
+const register = async (role, data) => {
+  let baseURL = null;
+
+  if (role === USER_ROLES.TEACHER.value) baseURL = '/guru/signup';
+  if (role === USER_ROLES.PARENT.value) baseURL = '/orangtua/signup';
+  if (role === USER_ROLES.STUDENT.value) baseURL = '/siswa/signup';
+
+  try {
+    const response = await http.post(baseURL, data);
+
+    return {
+      success: true,
+      message: response.data.message,
+      status: response.data.code,
+      payload: response.data.data,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error?.response?.data?.message || error.message,
+      status: error.response.status,
+      payload: error.response.data,
+    };
+  }
+};
+
+export const SERVICE_AUTH = { login, register };
