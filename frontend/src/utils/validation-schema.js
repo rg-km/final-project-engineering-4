@@ -9,6 +9,10 @@ const registerSchema = yup.object().shape({
     .matches(REGEX_PATTERN.number, 'No HP tidak valid')
     .min(10, 'No HP tidak valid')
     .required('No HP harus diisi'),
+  jenis_kelamin: yup.string().required('Jenis kelamin harus diisi'),
+  pendidikan: yup.string().required('Pendidikan harus diisi'),
+  agama: yup.string().required('Agama harus diisi'),
+  alamat: yup.string().required('Alamat harus diisi'),
   password: yup.string().required('Password harus diisi'),
   confirm_password: yup
     .string()

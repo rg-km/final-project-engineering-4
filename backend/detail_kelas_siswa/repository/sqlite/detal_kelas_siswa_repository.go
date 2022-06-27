@@ -15,7 +15,7 @@ func NewDetailKelasSiswaRepository(db *sql.DB) domain.DetailKelasSiswaRepository
 }
 
 func (d *detailKelasSiswaRepository) GetByKelasID(kelasID int64) ([]domain.DetailKelasSiswa, error) {
-	query := `SELECT id_dt_kelassiswa, id_siswa, id_class FROM dt_kelassiswa WHERE id_kelas = ? AND show_item = 1`
+	query := `SELECT id_dt_kelassiswa, id_siswa, id_class FROM dt_kelassiswa WHERE id_class = ? AND show_item = 1`
 	rows, err := d.db.Query(query, kelasID)
 	if err != nil {
 		return nil, err

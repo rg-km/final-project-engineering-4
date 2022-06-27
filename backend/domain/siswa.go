@@ -19,6 +19,7 @@ type Siswa struct {
 type SiswaRepository interface {
 	GetByEmail(email string) (*Siswa, error)
 	Create(siswa Siswa) error
+	GetByID(id int64) (*Siswa, error)
 }
 
 type SiswaUseCase interface {
