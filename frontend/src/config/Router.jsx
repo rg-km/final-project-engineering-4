@@ -5,8 +5,8 @@ import { PATH } from './path';
 import RoleSelection from '../pages/Auth/RoleSelection';
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
-import Dashboard from '@pages/DashboardPage/Dashboard';
-import Account from '@pages/DashboardPage/Account';
+import Dashboard from '@pages/Dashboard/Dashboard';
+import Account from '@pages/Dashboard/Account';
 import NoPage from '@pages/NoPage';
 import { useAuthStore } from '@store/auth.store';
 
