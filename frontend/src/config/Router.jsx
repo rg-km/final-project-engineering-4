@@ -40,9 +40,8 @@ function Router() {
         </Route>
 
         <Route element={<ProtectedRoute />}>
-          <Route path={PATH.DASHBOARD} element={<Dashboard />}>
-            <Route path={PATH.ACCOUNT} element={<Account />} />
-          </Route>
+          <Route path={PATH.DASHBOARD} element={<Dashboard />} />
+          <Route path={PATH.ACCOUNT} element={<Account />} />
         </Route>
 
         <Route path={PATH.NOPAGE} element={<NoPage />} />
