@@ -5,6 +5,7 @@ import { PATH } from './path';
 import RoleSelection from '../pages/Auth/RoleSelection';
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
+import DashboardLayout from '@components/organism/DashboardLayout';
 import Dashboard from '@pages/Dashboard/Dashboard';
 import Account from '@pages/Dashboard/Account';
 import NoPage from '@pages/NoPage';
@@ -40,8 +41,10 @@ function Router() {
         </Route>
 
         <Route element={<ProtectedRoute />}>
-          <Route path={PATH.DASHBOARD} element={<Dashboard />} />
-          <Route path={PATH.ACCOUNT} element={<Account />} />
+          <Route element={<DashboardLayout />}>
+            <Route path={PATH.DASHBOARD} element={<Dashboard />} />
+            <Route path={PATH.ACCOUNT} element={<Account />} />
+          </Route>
         </Route>
 
         <Route path={PATH.NOPAGE} element={<NoPage />} />
