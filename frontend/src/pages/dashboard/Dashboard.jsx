@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Container,
   Heading,
   Modal,
   ModalBody,
@@ -10,6 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
   SimpleGrid,
+  Stack,
   useDisclosure,
 } from '@chakra-ui/react';
 import InputText from '@components/InputText';
@@ -57,47 +59,53 @@ const Dashboard = () => {
   return (
     <Box bg={'gray.100'} minH={'100vh'}>
       <Navbar />
-      <Box px={{ base: 2, md: 20 }} py={{ base: 4, md: 8 }}>
-        <Heading fontSize={{ base: 'xs', md: 'md' }} mb={{ base: 2 }}>
-          Daftar Kelas Anda
-        </Heading>
 
-        <SimpleGrid columns={{ base: 2, md: 4 }} spacing={{ base: 2, md: 4 }}>
-          <AddClass to={PATH.DASHBOARD} onClick={onOpen} />
-          {studentClasses.length > 0 &&
-            studentClasses.map((kelas, index) => {
-              return <ClassItem key={index} to={PATH.DASHBOARD} kelas={kelas} />;
-            })}
-        </SimpleGrid>
+      <Container maxWidth={'8xl'}>
+        <Stack py={'4'} spacing={'4'}>
+          <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
+            <Heading fontSize={{ base: 'xs', md: 'md' }} mb={{ base: 2 }}>
+              Daftar Kelas Anda
+            </Heading>
+            <Button>Tambah Kelas Baru</Button>
+          </Stack>
 
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader fontSize={{ base: 'md' }}>Tambah Kelas Baru</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <InputText
-                type={'text'}
-                label={'Nama Kelas'}
-                value={input.nama_kelas}
-                onChange={(e) => setInput({ ...input, nama_kelas: e.target.value })}
-                required
-              />
-              <InputText
-                type={'text'}
-                label={'Keterangan'}
-                value={input.keterangan}
-                onChange={(e) => setInput({ ...input, keterangan: e.target.value })}
-              />
-            </ModalBody>
-            <ModalFooter>
-              <Button colorScheme="blue" onClick={handleSubmit} size={{ base: 'sm' }}>
-                Tambah Baru
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </Box>
+          <SimpleGrid columns={{ base: 2, md: 4 }} spacing={{ base: 2, md: 4 }}>
+            <AddClass to={PATH.DASHBOARD} onClick={onOpen} />
+            {studentClasses.length > 0 &&
+              studentClasses.map((kelas, index) => {
+                return <ClassItem key={index} to={PATH.DASHBOARD} kelas={kelas} />;
+              })}
+          </SimpleGrid>
+
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader fontSize={{ base: 'md' }}>Tambah Kelas Baru</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <InputText
+                  type={'text'}
+                  label={'Nama Kelas'}
+                  value={input.nama_kelas}
+                  onChange={(e) => setInput({ ...input, nama_kelas: e.target.value })}
+                  required
+                />
+                <InputText
+                  type={'text'}
+                  label={'Keterangan'}
+                  value={input.keterangan}
+                  onChange={(e) => setInput({ ...input, keterangan: e.target.value })}
+                />
+              </ModalBody>
+              <ModalFooter>
+                <Button colorScheme="blue" onClick={handleSubmit} size={{ base: 'sm' }}>
+                  Tambah Baru
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </Stack>
+      </Container>
     </Box>
   );
 };
