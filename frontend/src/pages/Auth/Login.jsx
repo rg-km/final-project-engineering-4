@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Formik } from 'formik';
 import { Button, Stack, Text, useToast } from '@chakra-ui/react';
@@ -16,16 +15,21 @@ const INITIAL_VALUES = {
 
 const Login = ({ role }) => {
   const toast = useToast();
-  const authAction = useAuthStore((state) => state.action);
-  const { error, isLoading } = useAuthStore((state) => state);
+
+  const { isLoading } = useAuthStore((state) => state); // data
+  const { handleLogin } = useAuthStore((state) => state); // action
 
   const handleSubmit = async (values) => {
-    authAction.login(role.value, values.email, values.password);
+    handleLogin(role.value, values.email, values.password, (success, message) => {
+      toast({
+        status: success ? 'success' : 'error',
+        position: 'top-right',
+        title: message,
+        duration: 2500,
+        isClosable: true,
+      });
+    });
   };
-
-  useEffect(() => {
-    if (error?.message) toast({ status: 'error', position: 'top-right', title: error.message, duration: 3000 });
-  }, [error]);
 
   return (
     <AuthContainer title={`Masuk sebagai ${role.title}`} subtitle="Masukkan email dan password Anda untuk masuk.">

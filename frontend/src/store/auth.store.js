@@ -1,21 +1,33 @@
 import { SERVICE_AUTH } from '@services/auth.service';
 import create from 'zustand';
+import { persist, devtools } from 'zustand/middleware';
 
-const useAuthStore = create((set) => ({
-  token: null,
-  user: null,
-  isLoading: false,
-  error: null,
-  action: {
-    login: async (role, email, password) => {
-      set({ isLoading: true });
+const useAuthStore = create(
+  devtools(
+    persist(
+      (set) => ({
+        token: '',
+        user: null,
+        isLoading: false,
+        handleLogin: async (role, email, password, callback) => {
+          set({ isLoading: true });
 
-      const response = await SERVICE_AUTH.login(role, email, password);
+          const response = await SERVICE_AUTH.login(role, email, password);
 
-      if (response.success) set({ token: response.payload.token, user: response.payload.user, isLoading: false });
-      else set({ error: response, isLoading: false });
-    },
-  },
-}));
+          set({
+            token: response.success ? response.payload.token : null,
+            user: response.success ? response.payload.user : null,
+            isLoading: false,
+          });
+
+          callback(response.success, response.message);
+        },
+      }),
+      {
+        name: 'auth-store',
+      }
+    )
+  )
+);
 
 export { useAuthStore };

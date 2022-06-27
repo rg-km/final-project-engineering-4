@@ -17,17 +17,17 @@ const login = async (role, email, password) => {
     const response = await http.post(baseURL, data);
 
     return {
-      payload: response.data,
-      status: response.code,
-      message: response.message,
       success: true,
+      message: response.data.message,
+      status: response.data.code,
+      payload: response.data.data,
     };
   } catch (error) {
     return {
-      payload: error.response.data,
-      status: error.response.status,
-      message: error?.response?.data?.message || error.message,
       success: false,
+      message: error?.response?.data?.message || error.message,
+      status: error.response.status,
+      payload: error.response.data,
     };
   }
 };
