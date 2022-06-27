@@ -22,6 +22,15 @@ const useAuthStore = create(
 
           callback(response.success, response.message);
         },
+        handleRegister: async (role, data, callback) => {
+          set({ isLoading: true });
+
+          const response = await SERVICE_AUTH.register(role, data);
+
+          set({ isLoading: false });
+
+          callback(response.success, response.message);
+        },
       }),
       {
         name: 'auth-store',
