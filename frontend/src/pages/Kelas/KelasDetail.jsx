@@ -2,8 +2,12 @@ import { Button } from '@chakra-ui/button';
 import { Checkbox } from '@chakra-ui/checkbox';
 import { Heading, Stack } from '@chakra-ui/layout';
 import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
+import { useParams } from 'react-router-dom';
 
 function KelasDetail() {
+  let { id } = useParams();
+  console.log(id);
+  
   return (
     <Stack py={8} spacing={4}>
       <Heading fontSize={'3xl'}>Bahasa Indonesia • 9F</Heading>
